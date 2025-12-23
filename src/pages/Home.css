@@ -32,19 +32,40 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  /* Account for header and footer heights */
+  min-height: calc(100vh - var(--header-height, 80px) - var(--footer-height, 100px));
+  box-sizing: border-box;
 }
 
 .staff-container {
   position: relative;
-  width: 100%;
-  max-width: min(95vw, 1400px);
+  width: var(--staff-width, 1200px);
   margin: 0 auto;
+  /* Fixed height based on initial viewport size */
+  max-height: calc(100vh - var(--header-height, 80px) - var(--footer-height, 100px) - 6rem);
 }
 
+/* Calculate staff line spacing for note sizing */
+/* Staff aspect ratio: 1200/200 = 6:1, so height = width/6 */
+/* Staff width = min(95vw, 1425px), so height = min(95vw/6, 237.5px) */
+/* Line spacing in viewBox = 18 units out of 200 total = 9% of height */
+/* Actual line spacing = staff height * 0.09 = min(95vw/6, 237.5px) * 0.09 */
+/* = min(15.833vw * 0.09, 237.5px * 0.09) = min(1.425vw, 21.375px) */
+/* Notes should scale with this spacing, maintaining ratio of ~4.21:1 */
+/* So note size = line spacing * 4.21 = min(1.425vw * 4.21, 21.375px * 4.21) */
+/* = min(6vw, 90px) - which matches current sizing! */
+/* Both stop scaling at vw = 1500px (when 95vw = 1425px) */
+
 .music-staff {
-  width: 100%;
-  height: auto;
+  width: var(--staff-width, 1200px);
+  height: var(--staff-height, 200px);
   display: block;
+  /* Fixed size set on initial load - does not resize */
+}
+
+.staff-line {
+  stroke-width: var(--stroke-width, 2px);
+  /* Fixed size set on initial load */
 }
 
 .notes-container {
@@ -56,10 +77,13 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 7%;
-  padding: 0 6.67% 0 15%;
+  gap: var(--note-gap, 84px);
+  padding: 0 var(--notes-right-padding, 80px) 0 var(--notes-left-padding, 180px);
   padding-top: 0px;
 }
+
+/* Staff line positions in viewBox: y=40, 58, 76, 94, 112 out of 200 total height */
+/* Calculate positions as percentage: (y-position / 200) * 100% */
 
 .note-link {
   display: flex;
@@ -71,24 +95,39 @@
   position: relative;
 }
 
+/* Position notes relative to staff lines/spaces */
+/* Staff lines: 40, 58, 76, 94, 112 (out of 200 viewBox height) */
+/* Each line is at: (y / 200) * 100% from top */
+/* To center note on line, subtract half note height */
+
 .note-link:nth-child(1) {
-  margin-top: 9.5%;
+  /* Fixed position set on initial load */
+  margin-top: calc(12 / 200 * 100% - var(--note-size, 70px) * 0.6 / 2);
+  align-self: flex-start;
 }
 
 .note-link:nth-child(2) {
-  margin-top: 5.9%;
+  /* Fixed position set on initial load */
+  margin-top: calc(10 / 200 * 100% - var(--note-size, 70px) * 0.6 / 2);
+  align-self: flex-start;
 }
 
 .note-link:nth-child(3) {
-  margin-top: 2.3%;
+  /* Fixed position set on initial load */
+  margin-top: calc(8 / 200 * 100% - var(--note-size, 70px) * 0.6 / 2);
+  align-self: flex-start;
 }
 
 .note-link:nth-child(4) {
-  margin-top: 9.5%;
+  /* Fixed position set on initial load */
+  margin-top: calc(12 / 200 * 100% - var(--note-size, 70px) * 0.6 / 2);
+  align-self: flex-start;
 }
 
 .note-link:nth-child(5) {
-  margin-top: 13.6%;
+  /* Fixed position set on initial load */
+  margin-top: calc(4 / 200 * 100% - var(--note-size, 70px) * 0.6 / 2);
+  align-self: flex-start;
 }
 
 .note-image-wrapper {
@@ -97,7 +136,8 @@
 }
 
 .music-note {
-  width: clamp(50px, 8vw, 90px);
+  /* Fixed size set on initial load - does not resize after window loads */
+  width: var(--note-size, 70px);
   height: auto;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
   display: block;
@@ -182,8 +222,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 7%;
-  padding: 0 6.67% 0 14.33%;
+  gap: var(--note-gap, 84px);
+  padding: 0 var(--labels-right-padding, 80px) 0 var(--labels-left-padding, 172px);
   padding-top: 0px;
   margin-top: 14%;
 }
@@ -193,11 +233,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(50px, 8vw, 90px);
+  width: var(--note-size, 70px);
 }
 
 .note-label {
-  font-size: clamp(0.9rem, 1.8vw, 1.3rem);
+  font-size: var(--label-font-size, 18px);
+  /* Fixed size set on initial load */
   font-weight: 500;
   color: #333;
   transition: color 0.3s ease;
@@ -210,25 +251,25 @@
 
 @media (max-width: 768px) {
   .notes-container {
-    gap: 3%;
-    padding: 0 3% 0 8%;
+    gap: var(--note-gap, 84px);
+    padding: 0 var(--notes-right-padding, 80px) 0 var(--notes-left-padding, 180px);
   }
 
   .music-note {
-    width: clamp(35px, 6vw, 70px);
+    width: var(--note-size, 70px);
   }
 
   .labels-container {
-    gap: 3%;
-    padding: 0 3% 0 7.33%;
+    gap: var(--note-gap, 84px);
+    padding: 0 var(--labels-right-padding, 80px) 0 var(--labels-left-padding, 172px);
   }
 
   .label-link {
-    width: clamp(35px, 6vw, 70px);
+    width: var(--note-size, 70px);
   }
 
   .note-label {
-    font-size: clamp(0.7rem, 1.5vw, 1rem);
+    font-size: var(--label-font-size, 18px);
   }
 }
 

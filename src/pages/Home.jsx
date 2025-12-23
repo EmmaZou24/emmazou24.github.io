@@ -7,8 +7,61 @@ function Home() {
   const staffContainerRef = useRef(null);
 
   useEffect(() => {
-    // No fixed sizing - let everything scale naturally with viewport
-  }, []);
+    // Calculate sizes once on initial load based on viewport width
+    // These values will remain fixed even if window is resized
+    const initialViewportWidth = window.innerWidth;
+    
+    // Calculate staff width (min(95vw, 1425px) at initial load)
+    const staffWidth = Math.min(initialViewportWidth * 0.95, 1425);
+    
+    // Calculate staff height (aspect ratio 1200/200 = 6:1, so height = width/6)
+    const staffHeight = staffWidth / 6;
+    
+    // Calculate note size (clamp(50px, 6vw, 90px) at initial load)
+    const noteSize = Math.max(50, Math.min(initialViewportWidth * 0.06, 90));
+    
+    // Calculate label font size (clamp(0.9rem, 1.8vw, 1.6875rem) at initial load)
+    // Convert rem to px (assuming 16px base): 0.9rem = 14.4px, 1.6875rem = 27px
+    const labelFontSize = Math.max(14.4, Math.min(initialViewportWidth * 0.018, 27));
+    
+    // Calculate staff line stroke width (clamp(1px, 0.15vw, 2.25px) at initial load)
+    const strokeWidth = Math.max(1, Math.min(initialViewportWidth * 0.0015, 2.25));
+    
+    // Calculate fixed spacing between notes (7% of staff width at initial load)
+    const noteGap = staffWidth * 0.07;
+    
+    // Calculate fixed padding for notes container (15% left, 6.67% right at initial load)
+    const notesLeftPadding = staffWidth * 0.15;
+    const notesRightPadding = staffWidth * 0.0667;
+    
+    // Calculate fixed padding for labels container (14.33% left, 6.67% right at initial load)
+    const labelsLeftPadding = staffWidth * 0.1433;
+    const labelsRightPadding = staffWidth * 0.0667;
+    
+    // Set CSS custom properties with fixed values
+    document.documentElement.style.setProperty('--staff-width', `${staffWidth}px`);
+    document.documentElement.style.setProperty('--staff-height', `${staffHeight}px`);
+    document.documentElement.style.setProperty('--note-size', `${noteSize}px`);
+    document.documentElement.style.setProperty('--label-font-size', `${labelFontSize}px`);
+    document.documentElement.style.setProperty('--stroke-width', `${strokeWidth}px`);
+    document.documentElement.style.setProperty('--note-gap', `${noteGap}px`);
+    document.documentElement.style.setProperty('--notes-left-padding', `${notesLeftPadding}px`);
+    document.documentElement.style.setProperty('--notes-right-padding', `${notesRightPadding}px`);
+    document.documentElement.style.setProperty('--labels-left-padding', `${labelsLeftPadding}px`);
+    document.documentElement.style.setProperty('--labels-right-padding', `${labelsRightPadding}px`);
+    
+    // Also measure header and footer heights once
+    const header = document.querySelector('.header');
+    const footer = document.querySelector('.footer');
+    
+    if (header && footer) {
+      const headerHeight = header.offsetHeight;
+      const footerHeight = footer.offsetHeight;
+      
+      document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
+      document.documentElement.style.setProperty('--footer-height', `${footerHeight}px`);
+    }
+  }, []); // Empty dependency array - only runs once on mount
 
   return (
     <div className="home">
@@ -16,11 +69,11 @@ function Home() {
         <div className="staff-container" ref={staffContainerRef}>
           <svg className="music-staff" viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg">
             {/* Staff lines */}
-            <line x1="50" y1="40" x2="1150" y2="40" stroke="#333" strokeWidth="2" />
-            <line x1="50" y1="58" x2="1150" y2="58" stroke="#333" strokeWidth="2" />
-            <line x1="50" y1="76" x2="1150" y2="76" stroke="#333" strokeWidth="2" />
-            <line x1="50" y1="94" x2="1150" y2="94" stroke="#333" strokeWidth="2" />
-            <line x1="50" y1="112" x2="1150" y2="112" stroke="#333" strokeWidth="2" />
+            <line x1="50" y1="40" x2="1150" y2="40" stroke="#333" className="staff-line" />
+            <line x1="50" y1="58" x2="1150" y2="58" stroke="#333" className="staff-line" />
+            <line x1="50" y1="76" x2="1150" y2="76" stroke="#333" className="staff-line" />
+            <line x1="50" y1="94" x2="1150" y2="94" stroke="#333" className="staff-line" />
+            <line x1="50" y1="112" x2="1150" y2="112" stroke="#333" className="staff-line" />
           </svg>
 
           <div className="notes-container">
