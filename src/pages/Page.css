@@ -1,0 +1,34 @@
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: calc(100vh - 200px);
+}
+
+.page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #ff8c42 0%, #ffa366 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.page-content {
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+}
+
+.page-content p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+  margin: 0 0 1rem 0;
+}
+
+.page-content p:last-child {
+  margin-bottom: 0;
+}
+
