@@ -27,6 +27,10 @@ function Home() {
     // Slightly bigger than reduced version: 0.75rem = 12px, 1.4375rem = 23px
     const labelFontSize = Math.max(12, Math.min(initialViewportWidth * 0.015, 23));
     
+    // Calculate header font size (scales with viewport, clamp(3rem, 6vw, 4.5rem) at initial load)
+    // Convert rem to px: 3rem = 48px, 4.5rem = 72px
+    const headerFontSize = Math.max(48, Math.min(initialViewportWidth * 0.06, 72));
+    
     // Calculate staff line stroke width (clamp(1px, 0.15vw, 2.25px) at initial load)
     const strokeWidth = Math.max(1, Math.min(initialViewportWidth * 0.0015, 2.25));
     
@@ -46,6 +50,7 @@ function Home() {
     document.documentElement.style.setProperty('--staff-height', `${staffHeight}px`);
     document.documentElement.style.setProperty('--note-size', `${noteSize}px`);
     document.documentElement.style.setProperty('--label-font-size', `${labelFontSize}px`);
+    document.documentElement.style.setProperty('--header-font-size', `${headerFontSize}px`);
     document.documentElement.style.setProperty('--stroke-width', `${strokeWidth}px`);
     document.documentElement.style.setProperty('--note-gap', `${noteGap}px`);
     document.documentElement.style.setProperty('--notes-left-padding', `${notesLeftPadding}px`);
@@ -68,6 +73,9 @@ function Home() {
 
   return (
     <div className="home">
+      <header className="home-header">
+        <h1>Emma Zou</h1>
+      </header>
       <section className="music-staff-section">
         <div className="staff-container" ref={staffContainerRef}>
           <svg className="music-staff" viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg">

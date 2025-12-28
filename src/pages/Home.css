@@ -6,6 +6,21 @@
   width: 100%;
 }
 
+.home-header {
+  text-align: center;
+  padding: 4rem 0 0 0; /* Reduced bottom padding to decrease space */
+  margin-bottom: 0;
+}
+
+.home-header h1 {
+  margin: 0;
+  font-size: var(--header-font-size, 40px);
+  font-weight: 500;
+  color: #000000;
+  font-family: 'Pixelify Sans', sans-serif;
+  /* Fixed size set on initial load - scales with viewport */
+}
+
 .hero {
   text-align: center;
   padding: 4rem 0;
@@ -28,7 +43,7 @@
 }
 
 .music-staff-section {
-  padding: 3rem 0;
+  padding: 0 0 3rem 0; /* Reduced top padding to decrease space */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -227,7 +242,7 @@
   gap: var(--note-gap, 156px);
   padding: 0 var(--labels-right-padding, 80px) 0 var(--labels-left-padding, 184px);
   padding-top: 0px;
-  margin-top: 14%;
+  margin-top: 12%;
 }
 
 .label-link {
@@ -243,6 +258,7 @@
   /* Fixed size set on initial load */
   font-weight: 500;
   color: #333;
+  font-family: 'Pixelify Sans', sans-serif;
   transition: color 0.3s ease;
   white-space: nowrap;
 }
