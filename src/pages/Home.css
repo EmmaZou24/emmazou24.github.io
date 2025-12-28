@@ -65,7 +65,8 @@
 
 .staff-line {
   stroke-width: var(--stroke-width, 2px);
-  /* Fixed size set on initial load */
+  vector-effect: non-scaling-stroke;
+  /* Fixed size set on initial load - will not scale with SVG */
 }
 
 .notes-container {
@@ -77,8 +78,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: var(--note-gap, 84px);
-  padding: 0 var(--notes-right-padding, 80px) 0 var(--notes-left-padding, 180px);
+  gap: var(--note-gap, 120px);
+  padding: 0 var(--notes-right-padding, 80px) 0 var(--notes-left-padding, 240px);
   padding-top: 0px;
 }
 
@@ -102,31 +103,31 @@
 
 .note-link:nth-child(1) {
   /* Fixed position set on initial load */
-  margin-top: calc(12 / 200 * 100% - var(--note-size, 70px) * 0.6 / 2);
+  margin-top: calc(15 / 200 * 100% - var(--note-size, 63px) * 0.6 / 2);
   align-self: flex-start;
 }
 
 .note-link:nth-child(2) {
   /* Fixed position set on initial load */
-  margin-top: calc(10 / 200 * 100% - var(--note-size, 70px) * 0.6 / 2);
+  margin-top: calc(13.4 / 200 * 100% - var(--note-size, 63px) * 0.6 / 2);
   align-self: flex-start;
 }
 
 .note-link:nth-child(3) {
   /* Fixed position set on initial load */
-  margin-top: calc(8 / 200 * 100% - var(--note-size, 70px) * 0.6 / 2);
+  margin-top: calc(11 / 200 * 100% - var(--note-size, 63px) * 0.6 / 2);
   align-self: flex-start;
 }
 
 .note-link:nth-child(4) {
   /* Fixed position set on initial load */
-  margin-top: calc(12 / 200 * 100% - var(--note-size, 70px) * 0.6 / 2);
+  margin-top: calc(15 / 200 * 100% - var(--note-size, 63px) * 0.6 / 2);
   align-self: flex-start;
 }
 
 .note-link:nth-child(5) {
   /* Fixed position set on initial load */
-  margin-top: calc(4 / 200 * 100% - var(--note-size, 70px) * 0.6 / 2);
+  margin-top: calc(7 / 200 * 100% - var(--note-size, 63px) * 0.6 / 2);
   align-self: flex-start;
 }
 
@@ -137,7 +138,7 @@
 
 .music-note {
   /* Fixed size set on initial load - does not resize after window loads */
-  width: var(--note-size, 70px);
+  width: var(--note-size, 63px);
   height: auto;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
   display: block;
@@ -222,8 +223,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: var(--note-gap, 84px);
-  padding: 0 var(--labels-right-padding, 80px) 0 var(--labels-left-padding, 172px);
+  gap: var(--note-gap, 120px);
+  padding: 0 var(--labels-right-padding, 80px) 0 var(--labels-left-padding, 232px);
   padding-top: 0px;
   margin-top: 14%;
 }
@@ -233,11 +234,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--note-size, 70px);
+  width: var(--note-size, 63px);
 }
 
 .note-label {
-  font-size: var(--label-font-size, 18px);
+  font-size: var(--label-font-size, 16px);
   /* Fixed size set on initial load */
   font-weight: 500;
   color: #333;
@@ -251,17 +252,17 @@
 
 @media (max-width: 768px) {
   .notes-container {
-    gap: var(--note-gap, 84px);
-    padding: 0 var(--notes-right-padding, 80px) 0 var(--notes-left-padding, 180px);
+    gap: var(--note-gap, 120px);
+    padding: 0 var(--notes-right-padding, 80px) 0 var(--notes-left-padding, 240px);
   }
 
   .music-note {
-    width: var(--note-size, 70px);
+    width: var(--note-size, 63px);
   }
 
   .labels-container {
-    gap: var(--note-gap, 84px);
-    padding: 0 var(--labels-right-padding, 80px) 0 var(--labels-left-padding, 172px);
+    gap: var(--note-gap, 120px);
+    padding: 0 var(--labels-right-padding, 80px) 0 var(--labels-left-padding, 232px);
   }
 
   .label-link {
@@ -269,7 +270,7 @@
   }
 
   .note-label {
-    font-size: var(--label-font-size, 18px);
+    font-size: var(--label-font-size, 16px);
   }
 }
 

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
-import eighthNote from '../assets/eighth note.png';
+import eighthNote from '../assets/svg music pixel.svg';
 import './Home.css';
 
 function Home() {
@@ -18,24 +18,26 @@ function Home() {
     const staffHeight = staffWidth / 6;
     
     // Calculate note size (clamp(50px, 6vw, 90px) at initial load)
-    const noteSize = Math.max(50, Math.min(initialViewportWidth * 0.06, 90));
+    // Reduced slightly: clamp(45px, 5.4vw, 81px)
+    const noteSize = Math.max(45, Math.min(initialViewportWidth * 0.054, 81));
     
     // Calculate label font size (clamp(0.9rem, 1.8vw, 1.6875rem) at initial load)
     // Convert rem to px (assuming 16px base): 0.9rem = 14.4px, 1.6875rem = 27px
-    const labelFontSize = Math.max(14.4, Math.min(initialViewportWidth * 0.018, 27));
+    // Slightly bigger than reduced version: 0.75rem = 12px, 1.4375rem = 23px
+    const labelFontSize = Math.max(12, Math.min(initialViewportWidth * 0.015, 23));
     
     // Calculate staff line stroke width (clamp(1px, 0.15vw, 2.25px) at initial load)
     const strokeWidth = Math.max(1, Math.min(initialViewportWidth * 0.0015, 2.25));
     
-    // Calculate fixed spacing between notes (7% of staff width at initial load)
-    const noteGap = staffWidth * 0.07;
+    // Calculate fixed spacing between notes (10% of staff width at initial load)
+    const noteGap = staffWidth * 0.10;
     
-    // Calculate fixed padding for notes container (15% left, 6.67% right at initial load)
-    const notesLeftPadding = staffWidth * 0.15;
+    // Calculate fixed padding for notes container (20% left, 6.67% right at initial load)
+    const notesLeftPadding = staffWidth * 0.20;
     const notesRightPadding = staffWidth * 0.0667;
     
-    // Calculate fixed padding for labels container (14.33% left, 6.67% right at initial load)
-    const labelsLeftPadding = staffWidth * 0.1433;
+    // Calculate fixed padding for labels container (19.33% left, 6.67% right at initial load)
+    const labelsLeftPadding = staffWidth * 0.1933;
     const labelsRightPadding = staffWidth * 0.0667;
     
     // Set CSS custom properties with fixed values
