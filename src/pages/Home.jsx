@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import eighthNote from '../assets/svg music pixel.svg';
+import altoClef from '../assets/pixel alto.png';
 import './Home.css';
 
 function Home() {
@@ -19,7 +20,7 @@ function Home() {
     
     // Calculate note size (clamp(50px, 6vw, 90px) at initial load)
     // Reduced slightly: clamp(45px, 5.4vw, 81px)
-    const noteSize = Math.max(45, Math.min(initialViewportWidth * 0.054, 81));
+    const noteSize = Math.max(45, Math.min(initialViewportWidth * 0.04, 81));
     
     // Calculate label font size (clamp(0.9rem, 1.8vw, 1.6875rem) at initial load)
     // Convert rem to px (assuming 16px base): 0.9rem = 14.4px, 1.6875rem = 27px
@@ -29,15 +30,15 @@ function Home() {
     // Calculate staff line stroke width (clamp(1px, 0.15vw, 2.25px) at initial load)
     const strokeWidth = Math.max(1, Math.min(initialViewportWidth * 0.0015, 2.25));
     
-    // Calculate fixed spacing between notes (10% of staff width at initial load)
-    const noteGap = staffWidth * 0.10;
+    // Calculate fixed spacing between notes (13% of staff width at initial load)
+    const noteGap = staffWidth * 0.13;
     
-    // Calculate fixed padding for notes container (20% left, 6.67% right at initial load)
-    const notesLeftPadding = staffWidth * 0.20;
+    // Calculate fixed padding for notes container (16% left, 6.67% right at initial load)
+    const notesLeftPadding = staffWidth * 0.16;
     const notesRightPadding = staffWidth * 0.0667;
     
-    // Calculate fixed padding for labels container (19.33% left, 6.67% right at initial load)
-    const labelsLeftPadding = staffWidth * 0.1933;
+    // Calculate fixed padding for labels container (15.33% left, 6.67% right at initial load)
+    const labelsLeftPadding = staffWidth * 0.1533;
     const labelsRightPadding = staffWidth * 0.0667;
     
     // Set CSS custom properties with fixed values
@@ -76,6 +77,17 @@ function Home() {
             <line x1="50" y1="76" x2="1150" y2="76" stroke="#333" className="staff-line" />
             <line x1="50" y1="94" x2="1150" y2="94" stroke="#333" className="staff-line" />
             <line x1="50" y1="112" x2="1150" y2="112" stroke="#333" className="staff-line" />
+            {/* Alto clef at the leftmost side, layered on top of staff lines */}
+            {/* Centered vertically on middle staff line (y=76), maintaining square proportions */}
+            <image 
+              href={altoClef} 
+              x="38" 
+              y="40" 
+              width="75" 
+              height="73" 
+              preserveAspectRatio="xMidYMid meet"
+              className="alto-clef"
+            />
           </svg>
 
           <div className="notes-container">
