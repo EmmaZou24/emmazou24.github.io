@@ -1,14 +1,17 @@
 .home {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 1rem 1rem;
   box-sizing: border-box;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - var(--footer-height, 100px));
 }
 
 .home-header {
   text-align: center;
-  padding: 4rem 0 0 0; /* Reduced bottom padding to decrease space */
+  padding: 2.5rem 0 0 0; /* Increased top padding to move header down */
   margin-bottom: 0;
 }
 
@@ -43,12 +46,12 @@
 }
 
 .music-staff-section {
-  padding: 0 0 3rem 0; /* Reduced top padding to decrease space */
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Account for header and footer heights */
-  min-height: calc(100vh - var(--header-height, 80px) - var(--footer-height, 100px));
+  /* Vertically center the content */
+  flex: 1;
   box-sizing: border-box;
 }
 
@@ -57,7 +60,6 @@
   width: var(--staff-width, 1200px);
   margin: 0 auto;
   /* Fixed height based on initial viewport size */
-  max-height: calc(100vh - var(--header-height, 80px) - var(--footer-height, 100px) - 6rem);
 }
 
 /* Calculate staff line spacing for note sizing */
@@ -158,7 +160,7 @@
   object-fit: fill;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
   display: block;
-  transition: filter 0.3s ease;
+  transition: filter 0.3s ease, transform 0.3s ease;
 }
 
 .note-link:hover .music-note {
@@ -167,27 +169,33 @@
           saturate(500%) 
           hue-rotate(350deg) 
           brightness(1.1);
+  transform: scale(1.1);
 }
 
 /* When hovering over a note, also highlight its corresponding label */
 .staff-container:has(.note-link:nth-child(1):hover) .label-link:nth-child(1) .note-label {
   color: #ff8c42;
+  transform: scale(1.1);
 }
 
 .staff-container:has(.note-link:nth-child(2):hover) .label-link:nth-child(2) .note-label {
   color: #ff8c42;
+  transform: scale(1.1);
 }
 
 .staff-container:has(.note-link:nth-child(3):hover) .label-link:nth-child(3) .note-label {
   color: #ff8c42;
+  transform: scale(1.1);
 }
 
 .staff-container:has(.note-link:nth-child(4):hover) .label-link:nth-child(4) .note-label {
   color: #ff8c42;
+  transform: scale(1.1);
 }
 
 .staff-container:has(.note-link:nth-child(5):hover) .label-link:nth-child(5) .note-label {
   color: #ff8c42;
+  transform: scale(1.1);
 }
 
 /* When hovering over a label, also highlight its corresponding note */
@@ -197,6 +205,7 @@
           saturate(500%) 
           hue-rotate(350deg) 
           brightness(1.1);
+  transform: scale(1.1);
 }
 
 .staff-container:has(.label-link:nth-child(2):hover) .note-link:nth-child(2) .music-note {
@@ -205,6 +214,7 @@
           saturate(500%) 
           hue-rotate(350deg) 
           brightness(1.1);
+  transform: scale(1.1);
 }
 
 .staff-container:has(.label-link:nth-child(3):hover) .note-link:nth-child(3) .music-note {
@@ -213,6 +223,7 @@
           saturate(500%) 
           hue-rotate(350deg) 
           brightness(1.1);
+  transform: scale(1.1);
 }
 
 .staff-container:has(.label-link:nth-child(4):hover) .note-link:nth-child(4) .music-note {
@@ -221,6 +232,7 @@
           saturate(500%) 
           hue-rotate(350deg) 
           brightness(1.1);
+  transform: scale(1.1);
 }
 
 .staff-container:has(.label-link:nth-child(5):hover) .note-link:nth-child(5) .music-note {
@@ -229,6 +241,7 @@
           saturate(500%) 
           hue-rotate(350deg) 
           brightness(1.1);
+  transform: scale(1.1);
 }
 
 .labels-container {
@@ -259,12 +272,13 @@
   font-weight: 500;
   color: #333;
   font-family: 'Pixelify Sans', sans-serif;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.3s ease;
   white-space: nowrap;
 }
 
 .label-link:hover .note-label {
   color: #ff8c42;
+  transform: scale(1.1);
 }
 
 @media (max-width: 768px) {

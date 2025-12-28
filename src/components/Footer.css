@@ -1,7 +1,7 @@
 .footer {
   background-color: #ffffff;
   border-top: 1px solid #e0e0e0;
-  padding: 2rem 0;
+  padding: 1rem 0;
   margin-top: auto;
 }
 
@@ -20,6 +20,7 @@
   color: #666;
   text-decoration: none;
   transition: color 0.2s;
+  font-family: 'Pixelify Sans', sans-serif;
 }
 
 .footer-content a:hover {
