@@ -1,8 +1,10 @@
 .page {
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
-  min-height: calc(100vh - 200px);
+  padding: 1rem; /* Reduced padding */
+  padding-top: 2rem; /* Reduced top padding to decrease space between header and content */
+  min-height: calc(100vh - 100px); /* Increased height - less space subtracted */
+  overflow-x: visible; /* Let parent handle horizontal scrolling */
+  overflow-y: auto; /* Allow vertical scrolling */
 }
 
 .page h1 {
@@ -12,13 +14,29 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-family: 'Pixelify Sans', sans-serif;
+}
+
+.about-me-heading {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #000000; /* Black color */
+  font-family: 'Pixelify Sans', sans-serif;
 }
 
 .page-content {
-  background-color: #f9f9f9;
-  padding: 2rem;
-  border-radius: 12px;
-  border: 1px solid #e0e0e0;
+  background-color: transparent; /* Remove background */
+  padding: 1rem; /* Reduced padding */
+  border-radius: 0; /* Remove border radius */
+  border: none; /* Remove border */
+  font-family: 'Electrolize', sans-serif;
+  flex: 0 0 var(--text-width, 800px); /* Fixed width set on initial load */
+  width: var(--text-width, 800px); /* Fixed width set on initial load */
+  min-width: var(--text-width, 800px);
+  overflow: hidden; /* Prevent overflow */
+  margin-left: var(--bracket-to-text-gap, 32px); /* Fixed gap between bracket and text */
+  margin-right: var(--text-to-barline-gap, 32px); /* Fixed gap between text and barline */
 }
 
 .page-content p {
@@ -26,9 +44,86 @@
   line-height: 1.8;
   color: #333;
   margin: 0 0 1rem 0;
+  font-family: 'Electrolize', sans-serif;
+  word-wrap: break-word; /* Allow words to break if needed */
+  overflow-wrap: break-word; /* Prevent overflow */
 }
 
 .page-content p:last-child {
   margin-bottom: 0;
+}
+
+.about-me-container {
+  display: flex;
+  align-items: stretch;
+  justify-content: center; /* Center the text box */
+  gap: 0; /* No gap - spacing controlled by fixed margins */
+  position: relative;
+  padding: 0 var(--barline-to-right-edge-margin, 20px) 0 var(--left-edge-to-bracket-margin, 20px); /* Fixed side margins */
+  margin: 0 auto; /* Center the container */
+  min-height: var(--about-container-height, 600px); /* Minimum height, can grow with content */
+  height: auto; /* Allow height to grow with content */
+  min-width: fit-content; /* Allow container to be as wide as its content */
+  width: 100%; /* Full width to allow absolute positioning */
+}
+
+.music-brace-container {
+  width: var(--bracket-width, 70px); /* Fixed width set on initial load */
+  max-width: var(--bracket-width, 70px);
+  min-width: var(--bracket-width, 70px);
+  align-self: stretch;
+  display: flex;
+  overflow: hidden; /* Changed back to hidden */
+  margin-left: 0; /* No margin needed with absolute positioning */
+  margin-right: 0; /* Remove right padding */
+  padding-right: 0; /* Remove right padding */
+  min-height: var(--bracket-height, 600px); /* Minimum height set on initial load */
+  flex: 0 0 var(--bracket-width, 70px); /* No grow, no shrink, fixed width */
+  position: absolute; /* Absolute positioning to not affect text box centering */
+  left: var(--left-edge-to-bracket-margin, 20px); /* Fixed margin from left edge */
+  /* Top position set dynamically by JavaScript to match text box */
+}
+
+.music-brace {
+  width: var(--bracket-width, 70px); /* Fixed width set on initial load */
+  height: 100%; /* Scale with container height like barline */
+  min-width: var(--bracket-width, 70px);
+  max-width: var(--bracket-width, 70px);
+  min-height: var(--bracket-height, 600px); /* Minimum height set on initial load */
+  object-fit: fill; /* Fill the height */
+  transform: scaleX(-1); /* Mirror across y-axis only */
+  display: block;
+  align-self: stretch;
+  flex: 0 0 auto; /* No grow, no shrink */
+  position: static; /* Static positioning */
+}
+
+.bar-line-container {
+  width: var(--barline-width, 20px); /* Fixed width set on initial load */
+  max-width: var(--barline-width, 20px);
+  min-width: var(--barline-width, 20px);
+  align-self: stretch;
+  display: flex;
+  overflow: hidden;
+  min-height: var(--barline-height, 600px); /* Minimum height set on initial load */
+  margin-left: 0; /* No margin needed with absolute positioning */
+  padding-left: 0; /* Remove left padding */
+  flex: 0 0 var(--barline-width, 20px); /* No grow, no shrink, fixed width */
+  position: absolute; /* Absolute positioning to not affect text box centering */
+  right: var(--barline-to-right-edge-margin, 20px); /* Fixed margin from right edge */
+  /* Top position set dynamically by JavaScript to match text box */
+}
+
+.bar-line {
+  width: var(--barline-width, 20px); /* Fixed width set on initial load */
+  height: 100%; /* Scale with container height */
+  min-width: var(--barline-width, 20px);
+  max-width: var(--barline-width, 20px);
+  min-height: var(--barline-height, 600px); /* Minimum height set on initial load */
+  object-fit: fill; /* Stretches to fill container */
+  transform: scaleX(-1); /* Mirror across y-axis */
+  display: block;
+  flex: 0 0 auto; /* No grow, no shrink */
+  position: static; /* Static positioning */
 }
 

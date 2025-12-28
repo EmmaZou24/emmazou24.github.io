@@ -6,7 +6,7 @@
   top: 0;
   z-index: 100;
   backdrop-filter: blur(10px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: none;
 }
 
 .header-content {
@@ -27,12 +27,13 @@
 
 .logo h1 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 600;
   background: linear-gradient(135deg, #ff8c42 0%, #ffa366 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-family: 'Pixelify Sans', sans-serif;
 }
 
 .nav-links {
@@ -47,6 +48,7 @@
   font-weight: 500;
   transition: color 0.2s;
   padding: 0.5rem 0;
+  font-family: 'Pixelify Sans', sans-serif;
 }
 
 .nav-links a:hover {

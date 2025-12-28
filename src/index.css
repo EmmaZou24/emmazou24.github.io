@@ -27,7 +27,8 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: #ffffff;
-  overflow-x: hidden;
+  overflow-x: auto; /* Allow horizontal scrolling for entire page */
+  overflow-y: auto; /* Allow vertical scrolling */
 }
 
 * {

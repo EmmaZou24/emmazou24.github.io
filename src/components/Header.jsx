@@ -6,10 +6,10 @@ function Header() {
     <header className="header">
       <div className="header-content">
         <Link to="/" className="logo">
-          <h1>Your Name</h1>
+          <h1>Emma Zou</h1>
         </Link>
         <nav className="nav-links">
-          <NavLink to="/" end>Home</NavLink>
+          {/* <NavLink to="/" end>Home</NavLink> */}
           <NavLink to="/about-me">About Me</NavLink>
           <NavLink to="/experience">Experience</NavLink>
           <NavLink to="/projects">Projects</NavLink>
