@@ -1,11 +1,17 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import eighthNote from '../assets/svg music pixel.svg';
 import altoClef from '../assets/pixel alto.png';
 import './Home.css';
 
 function Home() {
   const staffContainerRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Trigger animations on mount
+    setIsVisible(true);
+  }, []);
 
   useEffect(() => {
     // Calculate sizes once on initial load based on viewport width
@@ -18,9 +24,12 @@ function Home() {
     // Calculate staff height (aspect ratio 1200/200 = 6:1, so height = width/6)
     const staffHeight = staffWidth / 6;
     
-    // Calculate note size (clamp(50px, 6vw, 90px) at initial load)
-    // Reduced slightly: clamp(45px, 5.4vw, 81px)
-    const noteSize = Math.max(45, Math.min(initialViewportWidth * 0.04, 81));
+    // Calculate note size proportionally to staff width (same scaling as alto clef)
+    // Alto clef is 75 units wide in a 1200 unit wide viewBox = 6.25% of staff width
+    // Notes should scale proportionally with staff width like the alto clef does
+    // Using a proportional ratio: note size = staffWidth * ratio
+    // Ratio chosen to maintain similar visual size: approximately 5.2% of staff width
+    const noteSize = staffWidth * 0.04;
     
     // Calculate label font size (clamp(0.9rem, 1.8vw, 1.6875rem) at initial load)
     // Convert rem to px (assuming 16px base): 0.9rem = 14.4px, 1.6875rem = 27px
@@ -73,10 +82,10 @@ function Home() {
 
   return (
     <div className="home">
-      <header className="home-header">
+      <header className={`home-header ${isVisible ? 'animate-in' : ''}`}>
         <h1>Emma Zou</h1>
       </header>
-      <section className="music-staff-section">
+      <section className={`music-staff-section ${isVisible ? 'animate-in' : ''}`}>
         <div className="staff-container" ref={staffContainerRef}>
           <svg className="music-staff" viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg">
             {/* Staff lines */}
@@ -98,7 +107,7 @@ function Home() {
             />
           </svg>
 
-          <div className="notes-container">
+          <div className={`notes-container ${isVisible ? 'animate-in' : ''}`}>
             <Link to="/about-me" className="note-link">
               <div className="note-image-wrapper">
                 <img
@@ -113,7 +122,7 @@ function Home() {
               <div className="note-image-wrapper">
                 <img
                   src={eighthNote}
-                  alt="Projects/Research note"
+                  alt="Projects note"
                   className="music-note"
                 />
               </div>
@@ -152,12 +161,12 @@ function Home() {
             </Link>
           </div>
 
-          <div className="labels-container">
+          <div className={`labels-container ${isVisible ? 'animate-in' : ''}`}>
             <Link to="/about-me" className="label-link">
               <span className="note-label">About Me</span>
             </Link>
             <Link to="/projects" className="label-link">
-              <span className="note-label">Projects/Research</span>
+              <span className="note-label">Projects</span>
             </Link>
             <Link to="/experience" className="label-link">
               <span className="note-label">Experience</span>

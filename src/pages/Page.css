@@ -1,7 +1,7 @@
 .page {
   margin: 0 auto;
   padding: 1rem; /* Reduced padding */
-  padding-top: 1rem; /* Reduced top padding to decrease space between header and content */
+  padding-top: 2rem; /* Increased top padding to add space between header and content */
   min-height: calc(100vh - 100px); /* Increased height - less space subtracted */
   overflow-x: visible; /* Let parent handle horizontal scrolling */
   overflow-y: auto; /* Allow vertical scrolling */

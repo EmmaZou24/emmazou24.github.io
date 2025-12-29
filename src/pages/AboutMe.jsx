@@ -146,7 +146,6 @@ function AboutMe() {
 
   return (
     <div className="page">
-      <h1 className="about-me-heading">About Me</h1>
       <div className="about-me-container">
         <div className="music-brace-container" ref={bracketRef}>
           <img src={musicBrace} alt="Music brace" className="music-brace" />

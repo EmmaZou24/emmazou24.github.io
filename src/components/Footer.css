@@ -3,6 +3,39 @@
   border-top: 1px solid #e0e0e0;
   padding: 1rem 0;
   margin-top: auto;
+  /* Footer always takes up space to prevent layout shift */
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  /* Prevent layout shift - footer always reserves its space */
+  min-height: fit-content;
+}
+
+/* On home page, footer starts invisible but still takes up space */
+.footer.home-footer-hidden {
+  opacity: 0;
+  /* Keep visibility: visible so it still takes up space in layout */
+  visibility: visible;
+  /* Don't use transform that could affect layout calculations */
+  transform: translateY(0);
+}
+
+.footer.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+  animation: fadeInUp 0.6s ease-out 1.7s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    /* Don't use translateY to avoid layout shifts - just fade in */
+    transform: translateY(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .footer-content {
