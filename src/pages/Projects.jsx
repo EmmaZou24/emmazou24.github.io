@@ -1,6 +1,6 @@
 import './Page.css';
 import { useState, useRef, useEffect } from 'react';
-import pianoImage from '../assets/piano.png';
+import pianoImage from '../assets/piano bigger.png';
 import fermataImage from '../assets/fermata pixel.png';
 import integralImage from '../assets/projects/integral.png';
 import cabImage from '../assets/projects/cabnet.png';
@@ -63,7 +63,7 @@ function Projects() {
   const research = [
     { 
       title: '3D Hotspot Analysis and Flood Vulnerability', 
-      description: 'Created scalable open-source code to statistically analyze and visualize 3D spatio-temporal hotspots in multi-dimensional data, supporting 10+ configurable statistical and modeling parameters for flexible exploratory analysis. Implemented advanced geospatial statistical techniques for 3D inputs, such as Getis-Ord Gi* and the Mann-Kendall trend test. Compiled, cleaned, and analyzed flood event data with the code to uncover spatially varying relationships between social vulnerability and flood risk. Project code and documentation available upon request.',
+      description: 'Created scalable open-source code to statistically analyze and visualize 3D spatio-temporal hotspots in multi-dimensional data, supporting 10+ configurable statistical and modeling parameters for flexible exploratory analysis. Implemented advanced geospatial statistical techniques for 3D inputs, such as Getis-Ord Gi* and the Mann-Kendall trend test. Compiled, cleaned, and analyzed flood event data with the code to uncover spatially varying relationships between social vulnerability and flood risk. Awarded funding from the Brown University Undergraduate Teaching and Research Award and the Equitable Climate Futures initiative for research. Project code and documentation available upon request.',
       image: floodImage,
       techStack: 'Tech Stack: Python, GeoPandas, scipy, xarray, etc.',
       link: null
