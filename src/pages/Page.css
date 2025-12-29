@@ -47,8 +47,8 @@
 }
 
 .page-content p {
-  font-size: 1.1rem;
-  line-height: 1.8;
+  font-size: 1rem;
+  line-height: 1.6;
   color: #333;
   margin: 0 0 1rem 0;
   font-family: 'Electrolize', sans-serif;
@@ -128,14 +128,14 @@
   min-width: var(--bracket-width, 70px);
   max-width: var(--bracket-width, 70px);
   /* Height set dynamically by JavaScript - no min-height constraint */
-  object-fit: cover; /* Cover the container, cropping transparent margins */
+  object-fit: fill; /* Fill the container, compressing/stretching the image */
   object-position: center; /* Center the visible bracket content */
   transform: scaleX(-1); /* Mirror across y-axis only */
   display: block;
   align-self: stretch;
   flex: 0 0 auto; /* No grow, no shrink */
   position: static; /* Static positioning */
-  overflow: hidden; /* Hide overflow to crop margins */
+  overflow: hidden; /* Hide overflow */
 }
 
 /* Projects page styles */

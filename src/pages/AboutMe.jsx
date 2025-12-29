@@ -79,7 +79,7 @@ function AboutMe() {
           const textBoxTop = textBoxRect.top - containerRect.top;
           
           // Set heights slightly smaller than text box (reduce by 10%)
-          const targetBracketHeight = textBoxHeight * 0.98;
+          const targetBracketHeight = textBoxHeight * 0.93;
           const heightOffset = (textBoxHeight - targetBracketHeight) / 2; // Center the reduced height
           
           // Account for transparent margins in bracket image
@@ -98,13 +98,13 @@ function AboutMe() {
           const barlineImage = barlineRef.current.querySelector('.bar-line');
           
           if (bracketImage) {
-            // Set image height larger to account for transparent margins
-            bracketImage.style.height = `${bracketImageHeight}px`;
-            bracketImage.style.minHeight = `${bracketImageHeight}px`;
-            bracketImage.style.maxHeight = `${bracketImageHeight}px`;
+            // Set image height to match container height exactly (will compress/stretch)
+            bracketImage.style.height = `${targetBracketHeight}px`;
+            bracketImage.style.minHeight = `${targetBracketHeight}px`;
+            bracketImage.style.maxHeight = `${targetBracketHeight}px`;
             // Position image to show only the bracket part (center it vertically)
             bracketImage.style.objectPosition = 'center';
-            bracketImage.style.objectFit = 'cover';
+            bracketImage.style.objectFit = 'fill'; // Use 'fill' to compress/stretch instead of crop
           }
           
           if (barlineImage) {
