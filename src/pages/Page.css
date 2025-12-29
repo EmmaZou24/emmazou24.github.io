@@ -232,6 +232,40 @@
   }
 }
 
+/* About Me page animations */
+.about-me-container .music-brace-container,
+.about-me-container .bar-line-container {
+  opacity: 0;
+  visibility: visible;
+  scrollbar-gutter: stable;
+}
+
+.about-me-container .music-brace-container.animate-in-bracket,
+.about-me-container .bar-line-container.animate-in-bracket {
+  animation: fadeInAboutMe 0.7s ease forwards;
+  animation-delay: 0.3s;
+}
+
+.about-me-container .page-content {
+  opacity: 0;
+  visibility: visible;
+  scrollbar-gutter: stable;
+}
+
+.about-me-container .page-content.animate-in-content {
+  animation: fadeInAboutMe 0.7s ease forwards;
+  animation-delay: 0.95s;
+}
+
+@keyframes fadeInAboutMe {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* Experience page specific styles */
 .carousel-experience-meta {
   display: flex;
@@ -448,7 +482,7 @@
 }
 
 .experience-tab .carousel-content {
-  max-width: 710px;
+  max-width: 600px;
 }
 
 /* Adjust carousel controls position for Experience page */

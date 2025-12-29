@@ -1,5 +1,5 @@
 import './Page.css';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import musicBrace from '../assets/Bracket-cropped.svg';
 import barLine from '../assets/bar line.png';
 import emmaFruitImage from '../assets/emma fruit.jpg';
@@ -8,6 +8,7 @@ function AboutMe() {
   const textBoxRef = useRef(null);
   const bracketRef = useRef(null);
   const barlineRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     // Calculate sizes once on initial load based on viewport dimensions
@@ -144,20 +145,25 @@ function AboutMe() {
     };
   }, []);
 
+  useEffect(() => {
+    // Trigger fade-in animation on mount
+    setIsVisible(true);
+  }, []);
+
   return (
     <div className="page">
       <div className="about-me-container">
-        <div className="music-brace-container" ref={bracketRef}>
+        <div className={`music-brace-container ${isVisible ? 'animate-in-bracket' : ''}`} ref={bracketRef}>
           <img src={musicBrace} alt="Music brace" className="music-brace" />
         </div>
-        <div className="page-content" ref={textBoxRef}>
+        <div className={`page-content ${isVisible ? 'animate-in-content' : ''}`} ref={textBoxRef}>
           <img src={emmaFruitImage} alt="Emma at fruit market" className="emma-fruit-image" />
           <p>Hi! I'm Emma, a sophomore at Brown University pursuing an <b>Sc.B. in Applied Mathematics-Computer Science</b> and an <b>A.B. in Music.</b></p>
           <p>I'm passionate about how technology interacts with tangible, real-world issues in the environment, equity, education, and more! So far, I've enjoyed working on projects that apply software engineering, statistics, data science, and AI/ML to flood impact analysis, health equity research, and education platforms. In my future work, I hope to explore applications of math and technology to economics, healthcare, and human-centered systems.</p>
           <p>At Brown, I'm a web developer in the pro-bono <a href="https://www.fullstackatbrown.com/" target="_blank" rel="noopener noreferrer">Full Stack</a> organization and a mentee in the <a href="https://sites.google.com/brown.edu/drp-brown-math/home?authuser=0" target="_blank" rel="noopener noreferrer">Mathematics Directed Reading Program</a> studying graph theory and game theory. I'm also active in the music community as a member of the <a href="https://orchestra.brown.edu/" target="_blank" rel="noopener noreferrer">Brown University Orchestra</a> and the chamber music program. Outside of academics, I enjoy playing viola and piano, solving puzzles, photography, and journaling.</p>
           <p>Please feel free to reach out to me through any of my socials linked below. I'm always happy to chat!</p>
         </div>
-        <div className="bar-line-container" ref={barlineRef}>
+        <div className={`bar-line-container ${isVisible ? 'animate-in-bracket' : ''}`} ref={barlineRef}>
           <img src={barLine} alt="Bar line" className="bar-line" />
         </div>
       </div>
