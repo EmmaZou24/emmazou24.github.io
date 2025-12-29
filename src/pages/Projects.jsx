@@ -1,6 +1,7 @@
 import './Page.css';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import pianoImage from '../assets/piano.png';
+import fermataImage from '../assets/fermata pixel.png';
 import integralImage from '../assets/projects/integral.png';
 import cabImage from '../assets/projects/cabnet.png';
 import goImage from '../assets/projects/mcts_figure.png';
@@ -17,6 +18,13 @@ function Projects() {
   const [researchIndex, setResearchIndex] = useState(0);
   const [pianoDirection, setPianoDirection] = useState(null); // 'left' or 'right'
   const [pianoKey, setPianoKey] = useState(0); // Force re-render for animation reset
+  const [swipeDirection, setSwipeDirection] = useState(null); // 'left' or 'right' for swipe animation
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [prevProjectsIndex, setPrevProjectsIndex] = useState(0);
+  const [prevResearchIndex, setPrevResearchIndex] = useState(0);
+  const [fermataPosition, setFermataPosition] = useState(0);
+  const projectsButtonRef = useRef(null);
+  const researchButtonRef = useRef(null);
 
   // Sample project data - replace with your actual projects
   const projects = [
@@ -94,16 +102,24 @@ function Projects() {
     // If wrapping, go opposite direction (right), otherwise normal (left)
     setPianoDirection(isWrapping ? 'right' : 'left');
     setPianoKey(prev => prev + 1);
+    // If wrapping, swipe right (opposite), otherwise swipe left (normal)
+    setSwipeDirection(isWrapping ? 'right' : 'left');
+    setIsAnimating(true);
+    
+    // Store previous index
+    if (tab === 'projects') {
+      setPrevProjectsIndex(projectsIndex);
+      setProjectsIndex((prev) => (prev + 1) % projects.length);
+    } else {
+      setPrevResearchIndex(researchIndex);
+      setResearchIndex((prev) => (prev + 1) % research.length);
+    }
     
     setTimeout(() => {
       setPianoDirection(null);
-    }, 600); // Reset after animation
-    
-    if (tab === 'projects') {
-      setProjectsIndex((prev) => (prev + 1) % projects.length);
-    } else {
-      setResearchIndex((prev) => (prev + 1) % research.length);
-    }
+      setSwipeDirection(null);
+      setIsAnimating(false);
+    }, 300); // Reset after animation
   };
 
   const handlePrevious = (tab) => {
@@ -118,28 +134,64 @@ function Projects() {
     // If wrapping, go opposite direction (left), otherwise normal (right)
     setPianoDirection(isWrapping ? 'left' : 'right');
     setPianoKey(prev => prev + 1);
+    // If wrapping, swipe left (opposite), otherwise swipe right (normal)
+    setSwipeDirection(isWrapping ? 'left' : 'right');
+    setIsAnimating(true);
+    
+    // Store previous index
+    if (tab === 'projects') {
+      setPrevProjectsIndex(projectsIndex);
+      setProjectsIndex((prev) => (prev - 1 + projects.length) % projects.length);
+    } else {
+      setPrevResearchIndex(researchIndex);
+      setResearchIndex((prev) => (prev - 1 + research.length) % research.length);
+    }
     
     setTimeout(() => {
       setPianoDirection(null);
-    }, 600); // Reset after animation
-    
-    if (tab === 'projects') {
-      setProjectsIndex((prev) => (prev - 1 + projects.length) % projects.length);
-    } else {
-      setResearchIndex((prev) => (prev - 1 + research.length) % research.length);
-    }
+      setSwipeDirection(null);
+      setIsAnimating(false);
+    }, 300); // Reset after animation
   };
+
+  useEffect(() => {
+    const updateFermataPosition = () => {
+      if (activeTab === 'projects' && projectsButtonRef.current) {
+        const buttonRect = projectsButtonRef.current.getBoundingClientRect();
+        const containerRect = projectsButtonRef.current.parentElement.getBoundingClientRect();
+        const position = buttonRect.left - containerRect.left + (buttonRect.width / 2) - 15; // 15px is half of fermata width
+        setFermataPosition(position);
+      } else if (activeTab === 'research' && researchButtonRef.current) {
+        const buttonRect = researchButtonRef.current.getBoundingClientRect();
+        const containerRect = researchButtonRef.current.parentElement.getBoundingClientRect();
+        const position = buttonRect.left - containerRect.left + (buttonRect.width / 2) - 15;
+        setFermataPosition(position);
+      }
+    };
+
+    updateFermataPosition();
+    window.addEventListener('resize', updateFermataPosition);
+    return () => window.removeEventListener('resize', updateFermataPosition);
+  }, [activeTab]);
 
   return (
     <div className="page">
       <div className="projects-tabs-container">
+        <img 
+          src={fermataImage} 
+          alt="Fermata" 
+          className="projects-tab-fermata"
+          style={{ transform: `translateX(${fermataPosition}px)` }}
+        />
         <button 
+          ref={projectsButtonRef}
           className={`projects-tab-button ${activeTab === 'projects' ? 'active' : ''}`}
           onClick={() => setActiveTab('projects')}
         >
           Projects
         </button>
         <button 
+          ref={researchButtonRef}
           className={`projects-tab-button ${activeTab === 'research' ? 'active' : ''}`}
           onClick={() => setActiveTab('research')}
         >
@@ -150,30 +202,60 @@ function Projects() {
         {activeTab === 'projects' && (
           <>
             <div className="carousel-container">
-              <div className="carousel-content">
-                {projects[projectsIndex].image && (
-                  <img 
-                    src={projects[projectsIndex].image} 
-                    alt={projects[projectsIndex].title}
-                    className="carousel-project-image"
-                  />
+              <div className="carousel-content-wrapper">
+                {isAnimating && (
+                  <div className={`carousel-content swipe-exit-${swipeDirection}`}>
+                    {projects[prevProjectsIndex].image && (
+                      <img 
+                        src={projects[prevProjectsIndex].image} 
+                        alt={projects[prevProjectsIndex].title}
+                        className="carousel-project-image"
+                      />
+                    )}
+                    <div className="carousel-text-content">
+                      <h2>{projects[prevProjectsIndex].title}</h2>
+                      {projects[prevProjectsIndex].link && (
+                        <a 
+                          href={projects[prevProjectsIndex].link} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="carousel-project-link"
+                        >
+                          Link
+                        </a>
+                      )}
+                      {projects[prevProjectsIndex].techStack && (
+                        <div className="carousel-tech-stack">{projects[prevProjectsIndex].techStack}</div>
+                      )}
+                      <p>{projects[prevProjectsIndex].description}</p>
+                    </div>
+                  </div>
                 )}
-                <div className="carousel-text-content">
-                  <h2>{projects[projectsIndex].title}</h2>
-                  {projects[projectsIndex].link && (
-                    <a 
-                      href={projects[projectsIndex].link} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="carousel-project-link"
-                    >
-                      Link
-                    </a>
+                <div className={`carousel-content ${swipeDirection ? `swipe-enter-${swipeDirection}` : ''}`}>
+                  {projects[projectsIndex].image && (
+                    <img 
+                      src={projects[projectsIndex].image} 
+                      alt={projects[projectsIndex].title}
+                      className="carousel-project-image"
+                    />
                   )}
-                  {projects[projectsIndex].techStack && (
-                    <div className="carousel-tech-stack">{projects[projectsIndex].techStack}</div>
-                  )}
-                  <p>{projects[projectsIndex].description}</p>
+                  <div className="carousel-text-content">
+                    <h2>{projects[projectsIndex].title}</h2>
+                    {projects[projectsIndex].link && (
+                      <a 
+                        href={projects[projectsIndex].link} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="carousel-project-link"
+                      >
+                        Link
+                      </a>
+                    )}
+                    {projects[projectsIndex].techStack && (
+                      <div className="carousel-tech-stack">{projects[projectsIndex].techStack}</div>
+                    )}
+                    <p>{projects[projectsIndex].description}</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -207,30 +289,60 @@ function Projects() {
         {activeTab === 'research' && (
           <>
             <div className="carousel-container">
-              <div className="carousel-content">
-                {research[researchIndex].image && (
-                  <img 
-                    src={research[researchIndex].image} 
-                    alt={research[researchIndex].title}
-                    className="carousel-project-image"
-                  />
+              <div className="carousel-content-wrapper">
+                {isAnimating && (
+                  <div className={`carousel-content swipe-exit-${swipeDirection}`}>
+                    {research[prevResearchIndex].image && (
+                      <img 
+                        src={research[prevResearchIndex].image} 
+                        alt={research[prevResearchIndex].title}
+                        className="carousel-project-image"
+                      />
+                    )}
+                    <div className="carousel-text-content">
+                      <h2>{research[prevResearchIndex].title}</h2>
+                      {research[prevResearchIndex].link && (
+                        <a 
+                          href={research[prevResearchIndex].link} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="carousel-project-link"
+                        >
+                          Link
+                        </a>
+                      )}
+                      {research[prevResearchIndex].techStack && (
+                        <div className="carousel-tech-stack">{research[prevResearchIndex].techStack}</div>
+                      )}
+                      <p>{research[prevResearchIndex].description}</p>
+                    </div>
+                  </div>
                 )}
-                <div className="carousel-text-content">
-                  <h2>{research[researchIndex].title}</h2>
-                  {research[researchIndex].link && (
-                    <a 
-                      href={research[researchIndex].link} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="carousel-project-link"
-                    >
-                      Link
-                    </a>
+                <div className={`carousel-content ${swipeDirection ? `swipe-enter-${swipeDirection}` : ''}`}>
+                  {research[researchIndex].image && (
+                    <img 
+                      src={research[researchIndex].image} 
+                      alt={research[researchIndex].title}
+                      className="carousel-project-image"
+                    />
                   )}
-                  {research[researchIndex].techStack && (
-                    <div className="carousel-tech-stack">{research[researchIndex].techStack}</div>
-                  )}
-                  <p>{research[researchIndex].description}</p>
+                  <div className="carousel-text-content">
+                    <h2>{research[researchIndex].title}</h2>
+                    {research[researchIndex].link && (
+                      <a 
+                        href={research[researchIndex].link} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="carousel-project-link"
+                      >
+                        Link
+                      </a>
+                    )}
+                    {research[researchIndex].techStack && (
+                      <div className="carousel-tech-stack">{research[researchIndex].techStack}</div>
+                    )}
+                    <p>{research[researchIndex].description}</p>
+                  </div>
                 </div>
               </div>
             </div>

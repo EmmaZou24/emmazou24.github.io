@@ -142,16 +142,17 @@
   justify-content: center;
   gap: 1rem;
   margin-bottom: 0.25rem; /* Decreased even further */
-  padding-top: 0;
+  padding-top: 0.2rem;
   position: sticky;
   top: 0;
   background-color: #ffffff;
   z-index: 5;
   padding-bottom: 0.1rem;
+  position: relative;
 }
 
 .projects-tab-button {
-  padding: 0.5rem 1.5rem;
+  padding: 0.3rem 0.7rem;
   background-color: #ffffff;
   color: #333;
   border: 2px solid #ff8c42;
@@ -161,11 +162,16 @@
   font-weight: 500;
   transition: background-color 0.2s ease, color 0.2s ease;
   border-radius: 4px;
-  outline: none; /* Remove focus outline */
+  outline: none;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .projects-tab-button:focus {
-  outline: none; /* Remove focus outline */
+  outline: none;
 }
 
 .projects-tab-button:hover {
@@ -175,6 +181,19 @@
 .projects-tab-button.active {
   background-color: #ff8c42;
   color: #ffffff;
+  font-weight: bold;
+}
+
+.projects-tab-fermata {
+  width: 30px;
+  height: auto;
+  object-fit: contain;
+  position: absolute;
+  top: -20px;
+  left: 0;
+  transition: transform 0.3s ease;
+  pointer-events: none;
+  z-index: 6;
 }
 
 .projects-content {
@@ -194,6 +213,13 @@
   scrollbar-gutter: stable; /* Reserve space for scrollbar to prevent layout shift */
 }
 
+.carousel-content-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .carousel-content {
   display: flex;
   flex-direction: row;
@@ -206,6 +232,70 @@
   font-family: 'Electrolize', sans-serif;
   scrollbar-gutter: stable; /* Reserve space for scrollbar to prevent layout shift */
   flex-shrink: 0;
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.carousel-content.swipe-exit-left {
+  position: absolute;
+  animation: swipeExitLeft 0.3s ease forwards;
+}
+
+.carousel-content.swipe-exit-right {
+  position: absolute;
+  animation: swipeExitRight 0.3s ease forwards;
+}
+
+.carousel-content.swipe-enter-left {
+  animation: swipeEnterLeft 0.3s ease forwards;
+}
+
+.carousel-content.swipe-enter-right {
+  animation: swipeEnterRight 0.3s ease forwards;
+}
+
+@keyframes swipeExitLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+}
+
+@keyframes swipeExitRight {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+}
+
+@keyframes swipeEnterLeft {
+  0% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes swipeEnterRight {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .carousel-text-content {
