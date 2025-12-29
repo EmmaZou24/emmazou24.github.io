@@ -2,6 +2,7 @@ import './Page.css';
 import { useEffect, useRef } from 'react';
 import musicBrace from '../assets/Bracket-cropped.svg';
 import barLine from '../assets/bar line.png';
+import emmaFruitImage from '../assets/emma fruit.jpg';
 
 function AboutMe() {
   const textBoxRef = useRef(null);
@@ -18,13 +19,14 @@ function AboutMe() {
     const containerHeight = Math.max(400, initialViewportHeight * 0.6);
     
     // Calculate bracket width (clamp based on viewport width)
-    const bracketWidth = Math.max(40, Math.min(initialViewportWidth * 0.018, 90)); // Compressed horizontally
-    
+    // const bracketWidth = Math.max(40, Math.min(initialViewportWidth * 0.018, 90)); // Compressed horizontally
+    const bracketWidth = 40;
+
     // Calculate bracket height (scaled by 1.75 to match previous scaleY effect)
     const bracketHeight = containerHeight * 1;
     
     // Calculate barline width (fixed small width)
-    const barlineWidth = 20;
+    const barlineWidth = 30;
     
     // Calculate text box width (clamp based on viewport width)
     const textWidth = Math.max(600, Math.min(initialViewportWidth * 0.83, 1400)); // Increased to 85% and max 1400px
@@ -75,9 +77,44 @@ function AboutMe() {
           const textBoxHeight = textBoxRect.height;
           const textBoxTop = textBoxRect.top - containerRect.top;
           
-          // Set heights to match text box
-          bracketRef.current.style.height = `${textBoxHeight}px`;
-          barlineRef.current.style.height = `${textBoxHeight}px`;
+          // Set heights slightly smaller than text box (reduce by 10%)
+          const targetBracketHeight = textBoxHeight * 0.98;
+          const heightOffset = (textBoxHeight - targetBracketHeight) / 2; // Center the reduced height
+          
+          // Account for transparent margins in bracket image
+          // If bracket has transparent margins (e.g., 10% top + 10% bottom = 20% total),
+          // then visible content is 80% of image height
+          // Adjust these values based on your actual image margins
+          const bracketVisibleContentRatio = 0.998; // 80% of image is actual bracket (20% is margins)
+          const bracketImageHeight = targetBracketHeight / bracketVisibleContentRatio; // Scale up to account for margins
+          
+          // Set height on containers (container shows only the visible bracket part)
+          bracketRef.current.style.height = `${targetBracketHeight}px`;
+          barlineRef.current.style.height = `${targetBracketHeight}px`;
+          
+          // Also set height directly on the images to override CSS
+          const bracketImage = bracketRef.current.querySelector('.music-brace');
+          const barlineImage = barlineRef.current.querySelector('.bar-line');
+          
+          if (bracketImage) {
+            // Set image height larger to account for transparent margins
+            bracketImage.style.height = `${bracketImageHeight}px`;
+            bracketImage.style.minHeight = `${bracketImageHeight}px`;
+            bracketImage.style.maxHeight = `${bracketImageHeight}px`;
+            // Position image to show only the bracket part (center it vertically)
+            bracketImage.style.objectPosition = 'center';
+            bracketImage.style.objectFit = 'cover';
+          }
+          
+          if (barlineImage) {
+            barlineImage.style.height = `${targetBracketHeight}px`;
+            barlineImage.style.minHeight = `${targetBracketHeight}px`;
+            barlineImage.style.maxHeight = `${targetBracketHeight}px`;
+          }
+          
+          // Adjust top position to center the reduced height
+          bracketRef.current.style.top = `${textBoxTop + heightOffset}px`;
+          barlineRef.current.style.top = `${textBoxTop + heightOffset}px`;
           
           // Position to align with text box top relative to container
           bracketRef.current.style.top = `${textBoxTop}px`;
@@ -115,15 +152,11 @@ function AboutMe() {
           <img src={musicBrace} alt="Music brace" className="music-brace" />
         </div>
         <div className="page-content" ref={textBoxRef}>
-          <p>Hi! I'm Emma, a sophomore at Brown University. I'm pursuing an Sc.B. in Applied Mathematics-Computer Science, and an A.B. in Music.</p>
-          <p>I am passionate about how technology interacts with tangible, real-world issues in the environment, equity, education, and more! I have had the pleasure to work on projects applying software engineering, statistics, data science, and AI/ML to flood impact indices, health equity research, and education platforms. In my future work, I hope to explore applications of math and technology to economics, healthcare, and human interaction.
-          </p>
-          <p>
-          At Brown, I am a web developer in the pro-bono Full Stack organization and a mentee in the Mathematics Directed Reading Program studying graph theory and game theory. I am also involved with the music community as an active member of the Brown University Orchestra and chamber music program. Outside of class and extracurriculars, my hobbies include playing viola and piano, solving puzzles, taking photos, and journalling.
-          </p>
-          <p>
-            Please feel free to reach out to me through any of my socials linked below. I'm always happy to chat!
-          </p>
+          <img src={emmaFruitImage} alt="Emma at fruit market" className="emma-fruit-image" />
+          <p>Hi! I'm Emma, a sophomore at Brown University pursuing an <b>Sc.B. in Applied Mathematics-Computer Science</b> and an <b>A.B. in Music.</b></p>
+          <p>I'm passionate about how technology interacts with tangible, real-world issues in the environment, equity, education, and more! So far, I've enjoyed working on projects that apply software engineering, statistics, data science, and AI/ML to flood impact analysis, health equity research, and education platforms. In my future work, I hope to explore applications of math and technology to economics, healthcare, and human-centered systems.</p>
+          <p>At Brown, I'm a web developer in the pro-bono <a href="https://www.fullstackatbrown.com/" target="_blank" rel="noopener noreferrer">Full Stack</a> organization and a mentee in the <a href="https://sites.google.com/brown.edu/drp-brown-math/home?authuser=0" target="_blank" rel="noopener noreferrer">Mathematics Directed Reading Program</a> studying graph theory and game theory. I'm also active in the music community as a member of the <a href="https://orchestra.brown.edu/" target="_blank" rel="noopener noreferrer">Brown University Orchestra</a> and the chamber music program. Outside of academics, I enjoy playing viola and piano, solving puzzles, photography, and journaling.</p>
+          <p>Please feel free to reach out to me through any of my socials linked below. I'm always happy to chat!</p>
         </div>
         <div className="bar-line-container" ref={barlineRef}>
           <img src={barLine} alt="Bar line" className="bar-line" />

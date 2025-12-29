@@ -109,6 +109,16 @@ function Home() {
               </div>
             </Link>
 
+            <Link to="/projects" className="note-link">
+              <div className="note-image-wrapper">
+                <img
+                  src={eighthNote}
+                  alt="Projects/Research note"
+                  className="music-note"
+                />
+              </div>
+            </Link>
+
             <Link to="/experience" className="note-link">
               <div className="note-image-wrapper">
                 <img
@@ -119,15 +129,7 @@ function Home() {
               </div>
             </Link>
 
-            <Link to="/projects" className="note-link">
-              <div className="note-image-wrapper">
-                <img
-                  src={eighthNote}
-                  alt="Projects note"
-                  className="music-note"
-                />
-              </div>
-            </Link>
+            
 
             <Link to="/music" className="note-link">
               <div className="note-image-wrapper">
@@ -154,12 +156,13 @@ function Home() {
             <Link to="/about-me" className="label-link">
               <span className="note-label">About Me</span>
             </Link>
+            <Link to="/projects" className="label-link">
+              <span className="note-label">Projects/Research</span>
+            </Link>
             <Link to="/experience" className="label-link">
               <span className="note-label">Experience</span>
             </Link>
-            <Link to="/projects" className="label-link">
-              <span className="note-label">Projects</span>
-            </Link>
+            
             <Link to="/music" className="label-link">
               <span className="note-label">Music</span>
             </Link>
