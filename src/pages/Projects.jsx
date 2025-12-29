@@ -159,7 +159,7 @@ function Projects() {
       if (activeTab === 'projects' && projectsButtonRef.current) {
         const buttonRect = projectsButtonRef.current.getBoundingClientRect();
         const containerRect = projectsButtonRef.current.parentElement.getBoundingClientRect();
-        const position = buttonRect.left - containerRect.left + (buttonRect.width / 2) - 15; // 15px is half of fermata width
+        const position = buttonRect.left - containerRect.left + (buttonRect.width / 2) - 12; // 12px is half of fermata width
         setFermataPosition(position);
       } else if (activeTab === 'research' && researchButtonRef.current) {
         const buttonRect = researchButtonRef.current.getBoundingClientRect();

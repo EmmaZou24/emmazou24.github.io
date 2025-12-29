@@ -185,15 +185,16 @@
 }
 
 .projects-tab-fermata {
-  width: 30px;
+  width: 24px;
   height: auto;
   object-fit: contain;
   position: absolute;
-  top: -20px;
+  top: -17px;
   left: 0;
   transition: transform 0.3s ease;
   pointer-events: none;
   z-index: 6;
+  filter: brightness(0) saturate(100%) invert(58%) sepia(95%) saturate(2000%) hue-rotate(-9deg) brightness(0.95);
 }
 
 .projects-content {
