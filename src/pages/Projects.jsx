@@ -23,6 +23,7 @@ function Projects() {
   const [prevProjectsIndex, setPrevProjectsIndex] = useState(0);
   const [prevResearchIndex, setPrevResearchIndex] = useState(0);
   const [fermataPosition, setFermataPosition] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
   const projectsButtonRef = useRef(null);
   const researchButtonRef = useRef(null);
 
@@ -155,6 +156,11 @@ function Projects() {
   };
 
   useEffect(() => {
+    // Trigger fade-in animation on mount
+    setIsVisible(true);
+  }, []);
+
+  useEffect(() => {
     const updateFermataPosition = () => {
       if (activeTab === 'projects' && projectsButtonRef.current) {
         const buttonRect = projectsButtonRef.current.getBoundingClientRect();
@@ -176,7 +182,7 @@ function Projects() {
 
   return (
     <div className="page">
-      <div className="projects-tabs-container">
+      <div className={`projects-tabs-container ${isVisible ? 'animate-in' : ''}`}>
         <img 
           src={fermataImage} 
           alt="Fermata" 
@@ -198,7 +204,7 @@ function Projects() {
           Research
         </button>
       </div>
-      <div className="projects-content">
+      <div className={`projects-content ${isVisible ? 'animate-in' : ''}`}>
         {activeTab === 'projects' && (
           <>
             <div className="carousel-container">
