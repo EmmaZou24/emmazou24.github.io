@@ -13,6 +13,8 @@ import './App.css';
 function AppContent() {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const isAboutMePage = location.pathname === '/about-me';
+  const showFooter = isHomePage || isAboutMePage;
 
   // Scroll to top when route changes
   useEffect(() => {
@@ -32,7 +34,7 @@ function AppContent() {
           <Route path="/resume" element={<Resume />} />
         </Routes>
       </main>
-      <Footer />
+      {showFooter && <Footer />}
     </div>
   );
 }

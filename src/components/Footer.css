@@ -9,6 +9,7 @@
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   /* Prevent layout shift - footer always reserves its space */
   min-height: fit-content;
+  scrollbar-gutter: stable; /* Reserve space for scrollbar to prevent layout shift */
 }
 
 /* On home page, footer starts invisible but still takes up space */

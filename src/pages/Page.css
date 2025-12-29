@@ -5,6 +5,7 @@
   min-height: calc(100vh - 100px); /* Increased height - less space subtracted */
   overflow-x: visible; /* Let parent handle horizontal scrolling */
   overflow-y: auto; /* Allow vertical scrolling */
+  scrollbar-gutter: stable; /* Reserve space for scrollbar to prevent layout shift */
 }
 
 .page h1 {
@@ -133,6 +134,249 @@
   flex: 0 0 auto; /* No grow, no shrink */
   position: static; /* Static positioning */
   overflow: hidden; /* Hide overflow to crop margins */
+}
+
+/* Projects page styles */
+.projects-tabs-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.25rem; /* Decreased even further */
+  padding-top: 0;
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  z-index: 5;
+  padding-bottom: 0.1rem;
+}
+
+.projects-tab-button {
+  padding: 0.5rem 1.5rem;
+  background-color: #ffffff;
+  color: #333;
+  border: 2px solid #ff8c42;
+  cursor: pointer;
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  border-radius: 4px;
+  outline: none; /* Remove focus outline */
+}
+
+.projects-tab-button:focus {
+  outline: none; /* Remove focus outline */
+}
+
+.projects-tab-button:hover {
+  background-color: #fff5f0;
+}
+
+.projects-tab-button.active {
+  background-color: #ff8c42;
+  color: #ffffff;
+}
+
+.projects-content {
+  width: 100%;
+}
+
+.carousel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: calc(100vh - 100px - 2rem - 1rem - 60px - 100px); /* Reduced height by 100px */
+  padding: 1rem 0 0 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  position: relative;
+  scrollbar-gutter: stable; /* Reserve space for scrollbar to prevent layout shift */
+}
+
+.carousel-content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 1100px;
+  padding: 1rem 2rem;
+  padding-top: 0.25rem;
+  font-family: 'Electrolize', sans-serif;
+  scrollbar-gutter: stable; /* Reserve space for scrollbar to prevent layout shift */
+  flex-shrink: 0;
+}
+
+.carousel-text-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  flex: 1;
+}
+
+.carousel-text-content h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: #000;
+  font-family: 'Electrolize', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-shadow: 0.4px 0 0 currentColor, -0.4px 0 0 currentColor;
+  text-align: left;
+}
+
+.carousel-text-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+  margin: 0;
+  text-align: left;
+}
+
+.carousel-project-image {
+  width: 350px;
+  height: auto;
+  max-height: 350px;
+  border-radius: 4px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border: 2px solid #e0e0e0;
+  margin-top: 1rem;
+  /* align-self: flex-start; */
+}
+
+.carousel-tech-stack {
+  color: #666;
+  font-family: 'Electrolize', sans-serif;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+.carousel-project-link {
+  color: #ff8c42;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: 'Electrolize', sans-serif;
+  font-size: 1rem;
+}
+
+.carousel-project-link:hover {
+  color: #ff7a2e;
+  text-decoration: underline;
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0;
+  width: 100%;
+  flex-shrink: 0;
+  margin-top: -0.5rem;
+  margin-bottom: -1rem;
+  height: auto;
+  min-height: 0;
+}
+
+.carousel-button {
+  padding: 0.5rem 1.5rem;
+  background-color: #ffffff;
+  color: #333;
+  border: 2px solid #ff8c42;
+  cursor: pointer;
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  border-radius: 4px;
+  outline: none;
+}
+
+.carousel-button-triangle {
+  padding: 0.25rem 1rem;
+  font-size: 1.5rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  color: #333;
+  box-shadow: none !important;
+}
+
+.carousel-button:hover {
+  background-color: #ff8c42;
+  color: #ffffff;
+}
+
+.carousel-button-triangle:hover {
+  background: none !important;
+  background-color: transparent !important;
+  color: #ff8c42 !important;
+}
+
+.carousel-button:focus {
+  outline: none;
+}
+
+.piano-conveyor-container {
+  width: 170px;
+  height: 120px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.piano-conveyor-track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  transform: translateX(-240px); /* Start with middle piano centered (3 * 120px - 120px) */
+  will-change: transform;
+}
+
+.piano-conveyor-container.piano-left .piano-conveyor-track {
+  animation: pianoSlideLeft 0.6s ease forwards;
+}
+
+.piano-conveyor-container.piano-right .piano-conveyor-track {
+  animation: pianoSlideRight 0.6s ease forwards;
+}
+
+.carousel-indicator-image {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+
+@keyframes pianoSlideLeft {
+  0% {
+    transform: translateX(-240px);
+  }
+  100% {
+    transform: translateX(-360px);
+  }
+}
+
+@keyframes pianoSlideRight {
+  0% {
+    transform: translateX(-240px);
+  }
+  100% {
+    transform: translateX(-120px);
+  }
 }
 
 .bar-line-container {

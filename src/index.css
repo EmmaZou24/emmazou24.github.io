@@ -13,6 +13,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  scrollbar-gutter: stable; /* Reserve space for scrollbar to prevent layout shift */
+}
+
 a {
   font-weight: 500;
   color: #ff8c42;
@@ -29,6 +33,7 @@ body {
   background-color: #ffffff;
   overflow-x: auto; /* Allow horizontal scrolling for entire page */
   overflow-y: auto; /* Allow vertical scrolling */
+  scrollbar-gutter: stable; /* Reserve space for scrollbar to prevent layout shift */
 }
 
 * {
