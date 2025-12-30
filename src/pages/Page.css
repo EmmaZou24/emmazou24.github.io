@@ -10,6 +10,11 @@
   position: relative;
 }
 
+/* Reduce top padding for resume page */
+.resume-page {
+  padding-top: 0.5rem;
+}
+
 .page h1 {
   font-size: 2.5rem;
   margin-bottom: 2rem;
@@ -209,18 +214,13 @@
 
 .projects-content {
   width: 100%;
-  opacity: 0;
+  opacity: 1;
   visibility: visible;
   scrollbar-gutter: stable;
   position: relative;
   min-height: calc(100vh - 100px - 2rem - 60px);
   padding-bottom: 0;
   margin-bottom: 0;
-}
-
-.projects-content.animate-in {
-  animation: fadeInProjects 0.7s ease forwards;
-  animation-delay: 0.2s;
 }
 
 @keyframes fadeInProjects {
@@ -266,6 +266,130 @@
   }
 }
 
+/* Technical Skills tab animations */
+.technical-skills-icon-container {
+  opacity: 0;
+  visibility: visible;
+  scrollbar-gutter: stable;
+  height: 60px;
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  margin-bottom: 0.5rem;
+}
+
+.technical-skills-icon-container.animate-in-skills-icons {
+  animation: fadeInSkills 0.7s ease forwards;
+  animation-delay: 0.2s;
+}
+
+.technical-skills-column-content {
+  opacity: 0;
+  visibility: visible;
+  scrollbar-gutter: stable;
+}
+
+.technical-skills-column-content.animate-in-skills-columns {
+  animation: fadeInSkills 0.7s ease forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeInSkills {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Experience tab animations */
+.experience-tab {
+  opacity: 0;
+  visibility: visible;
+  scrollbar-gutter: stable;
+}
+
+.experience-tab.animate-in-experience-content {
+  animation: fadeInProjects 0.7s ease forwards;
+  animation-delay: 0.2s;
+}
+
+.experience-carousel-controls {
+  opacity: 0;
+  visibility: visible;
+  scrollbar-gutter: stable;
+  bottom: 2.7rem !important;
+}
+
+.experience-carousel-controls.animate-in-experience-controls {
+  animation: fadeInProjects 0.7s ease forwards;
+  animation-delay: 0.2s;
+}
+
+/* Projects page tab animations */
+/* Projects page tab animations */
+.carousel-container.animate-in-projects-content {
+  animation: fadeInProjects 0.7s ease forwards;
+  animation-delay: 0.2s;
+}
+
+.carousel-controls.animate-in-projects-controls {
+  animation: fadeInProjects 0.7s ease forwards;
+  animation-delay: 0.2s;
+}
+
+/* Resume page styles */
+.resume-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 80px - 2rem);
+  padding: 0.5rem 1rem 1rem 1rem;
+  gap: 1rem;
+}
+
+.resume-controls {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 900px;
+}
+
+.resume-fullscreen-button {
+  padding: 0.5rem 1rem;
+  background-color: #ff8c42;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  outline: none;
+}
+
+.resume-fullscreen-button:hover {
+  background-color: #ffa366;
+}
+
+.resume-fullscreen-button:focus {
+  outline: none;
+}
+
+.resume-pdf {
+  width: 100%;
+  max-width: 900px;
+  height: 100%;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex: 1;
+}
+
 /* Experience page specific styles */
 .carousel-experience-meta {
   display: flex;
@@ -304,8 +428,9 @@
 .technical-skills-container {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   gap: 3rem;
-  padding: 2rem;
+  padding: 1rem 2rem 2rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -313,16 +438,52 @@
 .technical-skills-column {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  flex: 1;
+  align-items: left;
+  gap: 0;
+  flex: 0 1 auto;
+  max-width: 300px;
+}
+
+.technical-skills-icon-container-treble {
+  justify-content: left; /* Can be changed to 'center' or 'right' */
+  margin-left: -0.8rem;
+}
+
+.technical-skills-icon-container-alto {
+  justify-content: left; /* Can be changed to 'center' or 'right' */
+  margin-left: -0.2rem;
+}
+
+.technical-skills-icon-container-bass {
+  justify-content: left; /* Can be changed to 'center' or 'right' */
+  margin-left: 0.1rem;
+}
+
+.technical-skills-icon {
+  height: auto;
+  object-fit: contain;
+}
+
+.technical-skills-icon-treble {
+  width: 45px;
+}
+
+.technical-skills-icon-alto {
+  width: 30px;
+}
+
+.technical-skills-icon-bass {
+  width: 25px;
 }
 
 .technical-skill-item {
-  padding: 0.5rem;
+  padding: 0;
+  margin: 0;
   font-family: 'Electrolize', sans-serif;
   font-size: 1rem;
   color: #333;
   text-align: left;
+  line-height: 1.7;
 }
 
 /* Music notes indicator for Experience page */
@@ -368,6 +529,8 @@
   margin-bottom: 0;
   position: relative;
   scrollbar-gutter: stable; /* Reserve space for scrollbar to prevent layout shift */
+  opacity: 0;
+  visibility: visible;
 }
 
 .carousel-content-wrapper {
@@ -485,10 +648,6 @@
   max-width: 600px;
 }
 
-/* Adjust carousel controls position for Experience page */
-.experience-carousel-controls {
-  bottom: 2.7rem !important;
-}
 
 .carousel-text-content h2 {
   font-size: 1.75rem;
@@ -560,6 +719,8 @@
   left: 0;
   right: 0;
   z-index: 10;
+  opacity: 0;
+  visibility: visible;
 }
 
 .carousel-button {

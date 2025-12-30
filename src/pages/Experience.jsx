@@ -2,6 +2,9 @@ import './Page.css';
 import { useState, useRef, useEffect } from 'react';
 import musicNoteImage from '../assets/music pixel.png';
 import fermataImage from '../assets/fermata pixel.png';
+import trebleImage from '../assets/treble pixel.png';
+import altoImage from '../assets/pixel alto.png';
+import bassImage from '../assets/bass pixel.png';
 
 function Experience() {
   const [activeTab, setActiveTab] = useState('experience');
@@ -11,6 +14,8 @@ function Experience() {
   const [prevExperienceIndex, setPrevExperienceIndex] = useState(0);
   const [fermataPosition, setFermataPosition] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [skillsTabVisible, setSkillsTabVisible] = useState(false);
+  const [experienceTabVisible, setExperienceTabVisible] = useState(false);
   const [musicNoteAnimation, setMusicNoteAnimation] = useState(null); // 'left', 'right', or null
   const [musicNoteKey, setMusicNoteKey] = useState(0); // Force re-render for animation reset
   const experienceButtonRef = useRef(null);
@@ -61,9 +66,11 @@ function Experience() {
 
   // Technical skills data - three columns
   const technicalSkills = {
-    column1: ['Skill 1', 'Skill 2', 'Skill 3'],
-    column2: ['Skill 4', 'Skill 5', 'Skill 6'],
-    column3: ['Skill 7', 'Skill 8', 'Skill 9']
+    column1: [
+      'Python', 'Java', 'R', 'JavaScript/TypeScript', 'HTML/CSS', 'Node.js', 'React', 'PyTorch', 'Tensorflow', 'Dart/Flutter'
+    ],
+    column2: ['Git', 'Firebase', 'Google Colab', 'Chrome DevTools', 'Microsoft Office Suite', 'Google Workspace', 'LaTeX', 'ArcGIS Pro'],
+    column3: ['Data visualization', 'Reusable data pipelines', 'Model evaluation', 'Version control', 'CI/CD', 'Full stack development', 'AI-assisted workflows', 'Code review & debugging', 'Technical writing', 'Geospatial statistics', 'Machine learning']
   };
 
   const handleNext = (tab) => {
@@ -125,7 +132,27 @@ function Experience() {
   useEffect(() => {
     // Trigger fade-in animation on mount
     setIsVisible(true);
+    setExperienceTabVisible(true); // Also trigger experience tab animation on initial load
   }, []);
+
+  useEffect(() => {
+    // Reset animation when switching to technical skills tab
+    if (activeTab === 'technicalSkills') {
+      setSkillsTabVisible(false);
+      setExperienceTabVisible(false);
+      // Small delay to reset animation
+      setTimeout(() => {
+        setSkillsTabVisible(true);
+      }, 10);
+    } else if (activeTab === 'experience') {
+      setExperienceTabVisible(false);
+      setSkillsTabVisible(false);
+      // Small delay to reset animation
+      setTimeout(() => {
+        setExperienceTabVisible(true);
+      }, 10);
+    }
+  }, [activeTab]);
 
   useEffect(() => {
     const updateFermataPosition = () => {
@@ -171,10 +198,10 @@ function Experience() {
           Tech Skills
         </button>
       </div>
-      <div className={`projects-content ${isVisible ? 'animate-in' : ''}`}>
+      <div className="projects-content">
         {activeTab === 'experience' && (
           <>
-            <div className="carousel-container experience-tab">
+            <div className={`carousel-container experience-tab ${experienceTabVisible ? 'animate-in-experience-content' : ''}`}>
               <div className="carousel-content-wrapper">
                 {isAnimating && (
                   <div className={`carousel-content swipe-exit-${swipeDirection}`}>
@@ -228,7 +255,7 @@ function Experience() {
                 </div>
               </div>
             </div>
-            <div className="carousel-controls experience-carousel-controls">
+            <div className={`carousel-controls experience-carousel-controls ${experienceTabVisible ? 'animate-in-experience-controls' : ''}`}>
               <button 
                 className="carousel-button carousel-button-triangle"
                 onClick={() => handlePrevious('experience')}
@@ -266,19 +293,34 @@ function Experience() {
         {activeTab === 'technicalSkills' && (
           <div className="technical-skills-container">
             <div className="technical-skills-column">
-              {technicalSkills.column1.map((skill, index) => (
-                <div key={index} className="technical-skill-item">{skill}</div>
-              ))}
+              <div className={`technical-skills-icon-container technical-skills-icon-container-treble ${skillsTabVisible ? 'animate-in-skills-icons' : ''}`}>
+                <img src={trebleImage} alt="Treble clef" className="technical-skills-icon technical-skills-icon-treble" />
+              </div>
+              <div className={`technical-skills-column-content ${skillsTabVisible ? 'animate-in-skills-columns' : ''}`}>
+                {technicalSkills.column1.map((skill, index) => (
+                  <div key={index} className="technical-skill-item">{skill}</div>
+                ))}
+              </div>
             </div>
             <div className="technical-skills-column">
-              {technicalSkills.column2.map((skill, index) => (
-                <div key={index} className="technical-skill-item">{skill}</div>
-              ))}
+              <div className={`technical-skills-icon-container technical-skills-icon-container-alto ${skillsTabVisible ? 'animate-in-skills-icons' : ''}`}>
+                <img src={altoImage} alt="Alto clef" className="technical-skills-icon technical-skills-icon-alto" />
+              </div>
+              <div className={`technical-skills-column-content ${skillsTabVisible ? 'animate-in-skills-columns' : ''}`}>
+                {technicalSkills.column2.map((skill, index) => (
+                  <div key={index} className="technical-skill-item">{skill}</div>
+                ))}
+              </div>
             </div>
             <div className="technical-skills-column">
-              {technicalSkills.column3.map((skill, index) => (
-                <div key={index} className="technical-skill-item">{skill}</div>
-              ))}
+              <div className={`technical-skills-icon-container technical-skills-icon-container-bass ${skillsTabVisible ? 'animate-in-skills-icons' : ''}`}>
+                <img src={bassImage} alt="Bass clef" className="technical-skills-icon technical-skills-icon-bass" />
+              </div>
+              <div className={`technical-skills-column-content ${skillsTabVisible ? 'animate-in-skills-columns' : ''}`}>
+                {technicalSkills.column3.map((skill, index) => (
+                  <div key={index} className="technical-skill-item">{skill}</div>
+                ))}
+              </div>
             </div>
           </div>
         )}

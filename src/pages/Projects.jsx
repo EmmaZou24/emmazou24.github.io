@@ -24,6 +24,8 @@ function Projects() {
   const [prevResearchIndex, setPrevResearchIndex] = useState(0);
   const [fermataPosition, setFermataPosition] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [projectsTabVisible, setProjectsTabVisible] = useState(true); // Start as true since 'projects' is the default tab
+  const [researchTabVisible, setResearchTabVisible] = useState(false);
   const projectsButtonRef = useRef(null);
   const researchButtonRef = useRef(null);
 
@@ -158,7 +160,27 @@ function Projects() {
   useEffect(() => {
     // Trigger fade-in animation on mount
     setIsVisible(true);
+    setProjectsTabVisible(true); // Also trigger projects tab animation on initial load
   }, []);
+
+  useEffect(() => {
+    // Reset animation when switching tabs
+    if (activeTab === 'projects') {
+      setProjectsTabVisible(false);
+      setResearchTabVisible(false);
+      // Small delay to reset animation
+      setTimeout(() => {
+        setProjectsTabVisible(true);
+      }, 10);
+    } else if (activeTab === 'research') {
+      setResearchTabVisible(false);
+      setProjectsTabVisible(false);
+      // Small delay to reset animation
+      setTimeout(() => {
+        setResearchTabVisible(true);
+      }, 10);
+    }
+  }, [activeTab]);
 
   useEffect(() => {
     const updateFermataPosition = () => {
@@ -204,10 +226,10 @@ function Projects() {
           Research
         </button>
       </div>
-      <div className={`projects-content ${isVisible ? 'animate-in' : ''}`}>
+      <div className="projects-content">
         {activeTab === 'projects' && (
           <>
-            <div className="carousel-container">
+            <div className={`carousel-container ${projectsTabVisible ? 'animate-in-projects-content' : ''}`}>
               <div className="carousel-content-wrapper">
                 {isAnimating && (
                   <div className={`carousel-content swipe-exit-${swipeDirection}`}>
@@ -265,7 +287,7 @@ function Projects() {
                 </div>
               </div>
             </div>
-            <div className="carousel-controls">
+            <div className={`carousel-controls ${projectsTabVisible ? 'animate-in-projects-controls' : ''}`}>
               <button 
                 className="carousel-button carousel-button-triangle"
                 onClick={() => handlePrevious('projects')}
@@ -294,7 +316,7 @@ function Projects() {
         )}
         {activeTab === 'research' && (
           <>
-            <div className="carousel-container">
+            <div className={`carousel-container ${researchTabVisible ? 'animate-in-projects-content' : ''}`}>
               <div className="carousel-content-wrapper">
                 {isAnimating && (
                   <div className={`carousel-content swipe-exit-${swipeDirection}`}>
@@ -352,7 +374,7 @@ function Projects() {
                 </div>
               </div>
             </div>
-            <div className="carousel-controls">
+            <div className={`carousel-controls ${researchTabVisible ? 'animate-in-projects-controls' : ''}`}>
               <button 
                 className="carousel-button carousel-button-triangle"
                 onClick={() => handlePrevious('research')}

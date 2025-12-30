@@ -1,11 +1,29 @@
 import './Page.css';
+import resumePdf from '../files/Emma Zou - Resume.pdf';
 
 function Resume() {
+  const handleOpenFullScreen = () => {
+    window.open(resumePdf, '_blank');
+  };
+
   return (
-    <div className="page">
-      <div className="page-content">
-        <p>This page will contain your resume and professional credentials.</p>
-        <p>You can add a downloadable PDF link, embed your resume, or display it directly on the page.</p>
+    <div className="page resume-page">
+      <div className="resume-container">
+        <div className="resume-controls">
+          <button 
+            className="resume-fullscreen-button"
+            onClick={handleOpenFullScreen}
+            aria-label="Open resume in new tab"
+          >
+            Open in New Tab
+          </button>
+        </div>
+        <iframe
+          src={resumePdf}
+          className="resume-pdf"
+          title="Resume PDF"
+          type="application/pdf"
+        />
       </div>
     </div>
   );
