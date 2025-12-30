@@ -14,7 +14,8 @@ function AppContent() {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
   const isAboutMePage = location.pathname === '/about-me';
-  const showFooter = isHomePage || isAboutMePage;
+  const isMusicPage = location.pathname === '/music';
+  const showFooter = isHomePage || isAboutMePage || isMusicPage;
 
   // Scroll to top when route changes
   useEffect(() => {
