@@ -17,6 +17,17 @@ function AppContent() {
   const isMusicPage = location.pathname === '/music';
   const showFooter = isHomePage || isAboutMePage || isMusicPage;
 
+  // Handle GitHub Pages redirect from 404.html
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const redirectPath = searchParams.get('p');
+    if (redirectPath) {
+      // Remove the query parameter and update the URL
+      const newPath = '/' + redirectPath + location.hash;
+      window.history.replaceState(null, '', newPath);
+    }
+  }, [location]);
+
   // Scroll to top when route changes
   useEffect(() => {
     window.scrollTo(0, 0);
