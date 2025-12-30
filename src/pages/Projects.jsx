@@ -47,7 +47,7 @@ function Projects() {
     },
     { 
       title: 'Go Agent', 
-      description: 'Built a hybrid Go Agent using Monte-Carlo tree sampling and iterative alpha-beta pruning as the capstone project for the Foundations of AI course. Rewarded and guided agent behavior with a weighted combination of heuristics based on territory score calculation, spatial weighting, supervised feature learning, and more. Achieved #2 in performance against agents built by other students in the class.',
+      description: 'Built a hybrid Go Agent using Monte-Carlo tree sampling and iterative alpha-beta pruning as the capstone project for the Foundations of AI course. Rewarded and guided agent behavior with a weighted combination of heuristics based on territory score calculation, spatial weighting, supervised feature learning, and more. Achieved #2 in performance against agents built by other students in the class. Project code available upon request.',
       image: goImage, // Optional: path to image
       techStack: 'Tech Stack: Python, PyTorch', // Optional: tech stack text
       link: null // Optional: URL to link to

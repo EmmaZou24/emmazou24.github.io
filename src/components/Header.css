@@ -24,6 +24,20 @@
 .logo {
   text-decoration: none;
   color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header-fhole {
+  width: 24px;
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.header-fhole-right {
+  transform: scaleX(-1);
 }
 
 .logo h1 {

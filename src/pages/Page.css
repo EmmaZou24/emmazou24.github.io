@@ -51,6 +51,20 @@
   margin-right: var(--text-to-barline-gap, 32px); /* Fixed gap between text and barline */
 }
 
+/* Music page specific styles */
+.music-page .page {
+  padding-top: 0.5rem;
+}
+
+.music-page .page-content {
+  max-width: 1200px;
+  width: 100%;
+  min-width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 0;
+}
+
 .page-content p {
   font-size: 1rem;
   line-height: 1.6;
@@ -68,6 +82,37 @@
   margin: 0 1.5rem 1rem 0; /* Margin on right and bottom for spacing */
   shape-outside: margin-box; /* Allow text to wrap around the image */
   display: block;
+}
+
+/* Music page images */
+.music-images-container {
+  float: right;
+  margin: 0 -20px 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  shape-outside: margin-box;
+}
+
+.music-image {
+  width: 250px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.music-staff-image {
+  width: 1400px;
+  height: 25px;
+  display: block;
+  margin-bottom: 0.9rem;
+  margin-top: 0;
+  margin-left: -73px;
+}
+
+.music-staff-image .staff-line {
+  stroke-width: 1;
+  stroke: #333;
 }
 
 .page-content b,
