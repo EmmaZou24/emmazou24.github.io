@@ -24,6 +24,7 @@ function Projects() {
   const [prevResearchIndex, setPrevResearchIndex] = useState(0);
   const [fermataPosition, setFermataPosition] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [projectsTabVisible, setProjectsTabVisible] = useState(true); // Start as true since 'projects' is the default tab
   const [researchTabVisible, setResearchTabVisible] = useState(false);
   const projectsButtonRef = useRef(null);
@@ -40,7 +41,7 @@ function Projects() {
     },
     { 
       title: 'C@Bnet', 
-      description: 'Currently developing a Chrome extension to add integrated course ratings/warnings, a complex recommendation system, and degree pathway visualization to the current Courses@Brown website used by all Brown students and professors for course registration. Wrote and deployed complex scripts for parsing user data, intercepting web API calls, and altering client/server interactions. Designed and implemented accessible and interactive UI/UX components to display course ratings, warning icons, etc. Project code available upon request.',
+      description: 'Currently developing a Chrome extension to add integrated course ratings/warnings, a complex decision tree-based recommendation system, and degree pathway visualization to the current Courses@Brown website used by all Brown students and professors for course registration. Wrote and deployed complex scripts for parsing user data, intercepting web API calls, and altering client/server interactions. Designed and implemented accessible and interactive UI/UX components to display course ratings, warning icons, etc. Project code available upon request.',
       image: cabImage, // Optional: path to image
       techStack: 'Tech Stack: Typescript/HTML/CSS, React, Chrome Extensions', // Optional: tech stack text
       link: null // Optional: URL to link to
@@ -161,6 +162,10 @@ function Projects() {
     // Trigger fade-in animation on mount
     setIsVisible(true);
     setProjectsTabVisible(true); // Also trigger projects tab animation on initial load
+    // Disable initial load flag after animation completes
+    setTimeout(() => {
+      setIsInitialLoad(false);
+    }, 1000); // After animation completes (0.7s animation + buffer)
   }, []);
 
   useEffect(() => {
@@ -208,7 +213,7 @@ function Projects() {
         <img 
           src={fermataImage} 
           alt="Fermata" 
-          className="projects-tab-fermata"
+          className={`projects-tab-fermata ${!isInitialLoad ? 'fermata-transition-enabled' : ''}`}
           style={{ transform: `translateX(${fermataPosition}px)` }}
         />
         <button 
@@ -229,7 +234,7 @@ function Projects() {
       <div className="projects-content">
         {activeTab === 'projects' && (
           <>
-            <div className={`carousel-container ${projectsTabVisible ? 'animate-in-projects-content' : ''}`}>
+            <div className={`carousel-container ${projectsTabVisible ? (isInitialLoad ? 'animate-in-projects-content-initial' : 'animate-in-projects-content') : ''}`}>
               <div className="carousel-content-wrapper">
                 {isAnimating && (
                   <div className={`carousel-content swipe-exit-${swipeDirection}`}>
@@ -287,7 +292,7 @@ function Projects() {
                 </div>
               </div>
             </div>
-            <div className={`carousel-controls ${projectsTabVisible ? 'animate-in-projects-controls' : ''}`}>
+            <div className={`carousel-controls ${projectsTabVisible ? (isInitialLoad ? 'animate-in-projects-controls-initial' : 'animate-in-projects-controls') : ''}`}>
               <button 
                 className="carousel-button carousel-button-triangle"
                 onClick={() => handlePrevious('projects')}
@@ -316,7 +321,7 @@ function Projects() {
         )}
         {activeTab === 'research' && (
           <>
-            <div className={`carousel-container ${researchTabVisible ? 'animate-in-projects-content' : ''}`}>
+            <div className={`carousel-container ${researchTabVisible ? (isInitialLoad ? 'animate-in-projects-content-initial' : 'animate-in-projects-content') : ''}`}>
               <div className="carousel-content-wrapper">
                 {isAnimating && (
                   <div className={`carousel-content swipe-exit-${swipeDirection}`}>
@@ -374,7 +379,7 @@ function Projects() {
                 </div>
               </div>
             </div>
-            <div className={`carousel-controls ${researchTabVisible ? 'animate-in-projects-controls' : ''}`}>
+            <div className={`carousel-controls ${researchTabVisible ? (isInitialLoad ? 'animate-in-projects-controls-initial' : 'animate-in-projects-controls') : ''}`}>
               <button 
                 className="carousel-button carousel-button-triangle"
                 onClick={() => handlePrevious('research')}

@@ -14,6 +14,7 @@ function Experience() {
   const [prevExperienceIndex, setPrevExperienceIndex] = useState(0);
   const [fermataPosition, setFermataPosition] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [skillsTabVisible, setSkillsTabVisible] = useState(false);
   const [experienceTabVisible, setExperienceTabVisible] = useState(false);
   const [musicNoteAnimation, setMusicNoteAnimation] = useState(null); // 'left', 'right', or null
@@ -133,6 +134,10 @@ function Experience() {
     // Trigger fade-in animation on mount
     setIsVisible(true);
     setExperienceTabVisible(true); // Also trigger experience tab animation on initial load
+    // Disable initial load flag after animation completes
+    setTimeout(() => {
+      setIsInitialLoad(false);
+    }, 1000); // After animation completes (0.7s animation + buffer)
   }, []);
 
   useEffect(() => {
@@ -180,7 +185,7 @@ function Experience() {
         <img 
           src={fermataImage} 
           alt="Fermata" 
-          className="projects-tab-fermata"
+          className={`projects-tab-fermata ${!isInitialLoad ? 'fermata-transition-enabled' : ''}`}
           style={{ transform: `translateX(${fermataPosition}px)` }}
         />
         <button 
@@ -201,7 +206,7 @@ function Experience() {
       <div className="projects-content">
         {activeTab === 'experience' && (
           <>
-            <div className={`carousel-container experience-tab ${experienceTabVisible ? 'animate-in-experience-content' : ''}`}>
+            <div className={`carousel-container experience-tab ${experienceTabVisible ? (isInitialLoad ? 'animate-in-experience-content-initial' : 'animate-in-experience-content') : ''}`}>
               <div className="carousel-content-wrapper">
                 {isAnimating && (
                   <div className={`carousel-content swipe-exit-${swipeDirection}`}>
@@ -255,7 +260,7 @@ function Experience() {
                 </div>
               </div>
             </div>
-            <div className={`carousel-controls experience-carousel-controls ${experienceTabVisible ? 'animate-in-experience-controls' : ''}`}>
+            <div className={`carousel-controls experience-carousel-controls ${experienceTabVisible ? (isInitialLoad ? 'animate-in-experience-controls-initial' : 'animate-in-experience-controls') : ''}`}>
               <button 
                 className="carousel-button carousel-button-triangle"
                 onClick={() => handlePrevious('experience')}
@@ -293,30 +298,30 @@ function Experience() {
         {activeTab === 'technicalSkills' && (
           <div className="technical-skills-container">
             <div className="technical-skills-column">
-              <div className={`technical-skills-icon-container technical-skills-icon-container-treble ${skillsTabVisible ? 'animate-in-skills-icons' : ''}`}>
+              <div className={`technical-skills-icon-container technical-skills-icon-container-treble ${skillsTabVisible ? (isInitialLoad ? 'animate-in-skills-icons-initial' : 'animate-in-skills-icons') : ''}`}>
                 <img src={trebleImage} alt="Treble clef" className="technical-skills-icon technical-skills-icon-treble" />
               </div>
-              <div className={`technical-skills-column-content ${skillsTabVisible ? 'animate-in-skills-columns' : ''}`}>
+              <div className={`technical-skills-column-content ${skillsTabVisible ? (isInitialLoad ? 'animate-in-skills-columns-initial' : 'animate-in-skills-columns') : ''}`}>
                 {technicalSkills.column1.map((skill, index) => (
                   <div key={index} className="technical-skill-item">{skill}</div>
                 ))}
               </div>
             </div>
             <div className="technical-skills-column">
-              <div className={`technical-skills-icon-container technical-skills-icon-container-alto ${skillsTabVisible ? 'animate-in-skills-icons' : ''}`}>
+              <div className={`technical-skills-icon-container technical-skills-icon-container-alto ${skillsTabVisible ? (isInitialLoad ? 'animate-in-skills-icons-initial' : 'animate-in-skills-icons') : ''}`}>
                 <img src={altoImage} alt="Alto clef" className="technical-skills-icon technical-skills-icon-alto" />
               </div>
-              <div className={`technical-skills-column-content ${skillsTabVisible ? 'animate-in-skills-columns' : ''}`}>
+              <div className={`technical-skills-column-content ${skillsTabVisible ? (isInitialLoad ? 'animate-in-skills-columns-initial' : 'animate-in-skills-columns') : ''}`}>
                 {technicalSkills.column2.map((skill, index) => (
                   <div key={index} className="technical-skill-item">{skill}</div>
                 ))}
               </div>
             </div>
             <div className="technical-skills-column">
-              <div className={`technical-skills-icon-container technical-skills-icon-container-bass ${skillsTabVisible ? 'animate-in-skills-icons' : ''}`}>
+              <div className={`technical-skills-icon-container technical-skills-icon-container-bass ${skillsTabVisible ? (isInitialLoad ? 'animate-in-skills-icons-initial' : 'animate-in-skills-icons') : ''}`}>
                 <img src={bassImage} alt="Bass clef" className="technical-skills-icon technical-skills-icon-bass" />
               </div>
-              <div className={`technical-skills-column-content ${skillsTabVisible ? 'animate-in-skills-columns' : ''}`}>
+              <div className={`technical-skills-column-content ${skillsTabVisible ? (isInitialLoad ? 'animate-in-skills-columns-initial' : 'animate-in-skills-columns') : ''}`}>
                 {technicalSkills.column3.map((skill, index) => (
                   <div key={index} className="technical-skill-item">{skill}</div>
                 ))}

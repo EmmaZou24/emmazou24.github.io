@@ -57,12 +57,51 @@
 }
 
 .music-page .page-content {
-  max-width: 1200px;
+  max-width: 900px;
   width: 100%;
   min-width: auto;
   margin-left: auto;
   margin-right: auto;
   padding-top: 0;
+  opacity: 0;
+  visibility: visible;
+  scrollbar-gutter: stable;
+}
+
+.music-page .page-content.animate-in-music-content {
+  animation: fadeInMusic 0.7s ease forwards;
+  animation-delay: 0.2s;
+}
+
+.music-staff-image {
+  opacity: 0;
+  visibility: visible;
+  scrollbar-gutter: stable;
+}
+
+.music-staff-image.animate-in-music-content {
+  animation: fadeInMusic 0.7s ease forwards;
+  animation-delay: 0.2s;
+}
+
+.music-images-container {
+  opacity: 0;
+  visibility: visible;
+  scrollbar-gutter: stable;
+}
+
+.music-images-container.animate-in-music-content {
+  animation: fadeInMusic 0.7s ease forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeInMusic {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .page-content p {
@@ -200,7 +239,6 @@
   background-color: #ffffff;
   z-index: 5;
   padding-bottom: 0.1rem;
-  position: relative;
   opacity: 0;
   visibility: visible;
   scrollbar-gutter: stable;
@@ -208,7 +246,7 @@
 
 .projects-tabs-container.animate-in {
   animation: fadeInProjects 0.7s ease forwards;
-  animation-delay: 0.2s;
+  animation-delay: 0s;
 }
 
 .projects-tab-button {
@@ -251,10 +289,14 @@
   position: absolute;
   top: -17px;
   left: 0;
-  transition: transform 0.3s ease;
+  transition: none; /* No transition by default */
   pointer-events: none;
   z-index: 6;
   filter: brightness(0) saturate(100%) invert(58%) sepia(95%) saturate(2000%) hue-rotate(-9deg) brightness(0.95);
+}
+
+.projects-tab-fermata.fermata-transition-enabled {
+  transition: transform 0.3s ease; /* Enable transition only after initial load */
 }
 
 .projects-content {
@@ -328,6 +370,11 @@
   animation-delay: 0.2s;
 }
 
+.technical-skills-icon-container.animate-in-skills-icons-initial {
+  animation: fadeInSkills 0.7s ease forwards;
+  animation-delay: 0.5s;
+}
+
 .technical-skills-column-content {
   opacity: 0;
   visibility: visible;
@@ -337,6 +384,11 @@
 .technical-skills-column-content.animate-in-skills-columns {
   animation: fadeInSkills 0.7s ease forwards;
   animation-delay: 0.2s;
+}
+
+.technical-skills-column-content.animate-in-skills-columns-initial {
+  animation: fadeInSkills 0.7s ease forwards;
+  animation-delay: 0.5s;
 }
 
 @keyframes fadeInSkills {
@@ -360,6 +412,11 @@
   animation-delay: 0.2s;
 }
 
+.experience-tab.animate-in-experience-content-initial {
+  animation: fadeInProjects 0.7s ease forwards;
+  animation-delay: 0.5s;
+}
+
 .experience-carousel-controls {
   opacity: 0;
   visibility: visible;
@@ -372,6 +429,11 @@
   animation-delay: 0.2s;
 }
 
+.experience-carousel-controls.animate-in-experience-controls-initial {
+  animation: fadeInProjects 0.7s ease forwards;
+  animation-delay: 0.5s;
+}
+
 /* Projects page tab animations */
 /* Projects page tab animations */
 .carousel-container.animate-in-projects-content {
@@ -379,9 +441,19 @@
   animation-delay: 0.2s;
 }
 
+.carousel-container.animate-in-projects-content-initial {
+  animation: fadeInProjects 0.7s ease forwards;
+  animation-delay: 0.5s;
+}
+
 .carousel-controls.animate-in-projects-controls {
   animation: fadeInProjects 0.7s ease forwards;
   animation-delay: 0.2s;
+}
+
+.carousel-controls.animate-in-projects-controls-initial {
+  animation: fadeInProjects 0.7s ease forwards;
+  animation-delay: 0.5s;
 }
 
 /* Resume page styles */
