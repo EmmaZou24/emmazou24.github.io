@@ -12,7 +12,7 @@ function Footer() {
       // Delay footer animation to appear last
       const timer = setTimeout(() => {
         setIsVisible(true);
-      }, 1700); // Appears after notes/labels (1s delay + 0.6s animation + buffer)
+      }, 1500); // Appears after notes/labels (1s delay + 0.6s animation + buffer)
       return () => clearTimeout(timer);
     } else {
       // On other pages, show immediately
