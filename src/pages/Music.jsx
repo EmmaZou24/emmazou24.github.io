@@ -14,13 +14,11 @@ function Music() {
   useEffect(() => {
     // Trigger animation on mount
     setIsVisible(true);
-    
-    // Enable hover effects after a delay (animation delay 0.2s + animation duration 0.7s + buffer)
-    const hoverTimer = setTimeout(() => {
+    // Enable hover effects after a delay (e.g., 1 second after images load)
+    const timer = setTimeout(() => {
       setHoverEnabled(true);
-    }, 1100); // 0.2s delay + 0.7s animation + 0.2s buffer
-    
-    return () => clearTimeout(hoverTimer);
+    }, 1000);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
