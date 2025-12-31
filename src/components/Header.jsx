@@ -7,9 +7,23 @@ function Header() {
     <header className="header">
       <div className="header-content">
         <Link to="/" className="logo">
-          <img src={fholeImage} alt="F-hole" className="header-fhole header-fhole-left" />
+          <img 
+            src={fholeImage} 
+            alt="F-hole" 
+            className="header-fhole header-fhole-left" 
+            loading="eager"
+            width="24"
+            height="24"
+          />
           <h1>Emma Zou</h1>
-          <img src={fholeImage} alt="F-hole" className="header-fhole header-fhole-right" />
+          <img 
+            src={fholeImage} 
+            alt="F-hole" 
+            className="header-fhole header-fhole-right" 
+            loading="eager"
+            width="24"
+            height="24"
+          />
         </Link>
         <nav className="nav-links">
           {/* <NavLink to="/" end>Home</NavLink> */}
