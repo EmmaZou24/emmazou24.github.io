@@ -176,11 +176,11 @@
   line-height: 1.4;
 }
 
-.music-image-wrapper:hover .music-image {
+.music-image-wrapper.hover-enabled:hover .music-image {
   opacity: 0.99;
 }
 
-.music-image-wrapper:hover .music-image-text {
+.music-image-wrapper.hover-enabled:hover .music-image-text {
   opacity: 1;
   visibility: visible;
 }

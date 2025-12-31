@@ -9,10 +9,18 @@ import barLineImage from '../assets/bar line.png';
 
 function Music() {
   const [isVisible, setIsVisible] = useState(false);
+  const [hoverEnabled, setHoverEnabled] = useState(false);
 
   useEffect(() => {
     // Trigger animation on mount
     setIsVisible(true);
+    
+    // Enable hover effects after a delay (animation delay 0.2s + animation duration 0.7s + buffer)
+    const hoverTimer = setTimeout(() => {
+      setHoverEnabled(true);
+    }, 1100); // 0.2s delay + 0.7s animation + 0.2s buffer
+    
+    return () => clearTimeout(hoverTimer);
   }, []);
 
   return (
@@ -49,19 +57,19 @@ function Music() {
           </g>
         </svg>
         <div className={`music-images-container ${isVisible ? 'animate-in-music-content' : ''}`}>
-          <div className="music-image-wrapper">
+          <div className={`music-image-wrapper ${hoverEnabled ? 'hover-enabled' : ''}`}>
             <img src={soloImage} alt="Solo performance" className="music-image" />
             <div className="music-image-text">
               <p>Enescu Concertpiece with Accord Symphony Orchestra! (2024)</p>
             </div>
           </div>
-          <div className="music-image-wrapper">
+          <div className={`music-image-wrapper ${hoverEnabled ? 'hover-enabled' : ''}`}>
             <img src={violasImage} alt="Violas section" className="music-image" />
             <div className="music-image-text">
               <p>BUO Viola Section after playing Ravel Daphnis et Chloé Suite No. 2! (2025)</p>
             </div>
           </div>
-          <div className="music-image-wrapper">
+          <div className={`music-image-wrapper ${hoverEnabled ? 'hover-enabled' : ''}`}>
             <img src={chamberImage} alt="Chamber music" className="music-image" />
             <div className="music-image-text">
               <p>My string quartet performing movement 3 of the Debussy String Quartet! (2025)</p>
