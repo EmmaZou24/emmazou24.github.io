@@ -8,16 +8,20 @@ export default defineConfig({
   plugins: [
     react(),
     {
-      name: 'copy-404',
+      name: 'copy-404-and-cname',
       closeBundle() {
-        // Copy 404.html to dist after build
+        // Copy 404.html and CNAME to dist after build
         try {
           copyFileSync(
             join(__dirname, 'public', '404.html'),
             join(__dirname, 'dist', '404.html')
           )
+          copyFileSync(
+            join(__dirname, 'public', 'CNAME'),
+            join(__dirname, 'dist', 'CNAME')
+          )
         } catch (err) {
-          console.warn('Could not copy 404.html:', err)
+          console.warn('Could not copy files:', err)
         }
       }
     }
