@@ -21,10 +21,14 @@
   transform: translateY(0);
 }
 
-.footer.animate-in {
+.footer.home-footer-hidden {
+  opacity: 0;
+}
+
+.footer.home-footer-hidden.animate-in {
   opacity: 1;
   transform: translateY(0);
-  animation: fadeInUp 0.6s ease-out 0s both;
+  animation: fadeInUp 0.6s ease-out var(--footer-delay, 1700ms) both;
 }
 
 @keyframes fadeInUp {

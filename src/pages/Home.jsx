@@ -54,6 +54,10 @@ function Home() {
     const labelsLeftPadding = staffWidth * 0.1533;
     const labelsRightPadding = staffWidth * 0.0667;
     
+    // Calculate footer animation delay (appears after notes/labels: 1s delay + 0.6s animation + 0.2s buffer = 1.8s)
+    // This ensures consistent timing regardless of when components mount
+    const footerDelay = 1700; // milliseconds
+    
     // Set CSS custom properties with fixed values
     document.documentElement.style.setProperty('--staff-width', `${staffWidth}px`);
     document.documentElement.style.setProperty('--staff-height', `${staffHeight}px`);
@@ -66,6 +70,7 @@ function Home() {
     document.documentElement.style.setProperty('--notes-right-padding', `${notesRightPadding}px`);
     document.documentElement.style.setProperty('--labels-left-padding', `${labelsLeftPadding}px`);
     document.documentElement.style.setProperty('--labels-right-padding', `${labelsRightPadding}px`);
+    document.documentElement.style.setProperty('--footer-delay', `${footerDelay}ms`);
     
     // Also measure header and footer heights once
     const header = document.querySelector('.header');
